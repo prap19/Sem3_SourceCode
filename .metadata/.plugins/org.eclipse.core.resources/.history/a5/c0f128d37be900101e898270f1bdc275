@@ -1,0 +1,25 @@
+package create.dataset;
+
+import java.io.File;
+
+public class MainClass {
+
+	String FS= File.separator;
+	void ReadDataSet()
+	{
+		 String path = "data"; 
+		 
+		  String files;
+		  File folder = new File(path);
+		  File[] listOfFiles = folder.listFiles();
+	}
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

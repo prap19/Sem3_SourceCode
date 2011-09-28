@@ -1,0 +1,35 @@
+package create.dataset;
+
+import java.io.File;
+
+public class MainClass {
+
+	private static String FS= File.separator;
+	static void ReadDataSet()
+	{
+		// TODO
+		// Read all files from directory
+		// Make seperate function for reading preposition 'in, of, on'
+		//
+		
+		 String path = "data"+FS+"data_stage_one"+FS+"training_set";  // Folder path 
+		 
+		  String files;
+		  File folder = new File(path);
+		  File[] listOfFiles = folder.listFiles();
+		  
+		  for(int i=0; i<listOfFiles.length; i++)
+		  {
+			  System.out.println(listOfFiles[i].getName());
+		  }
+	}
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ReadDataSet();
+	}
+
+}

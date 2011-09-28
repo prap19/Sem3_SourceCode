@@ -1,0 +1,77 @@
+package create.dataset;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class MainClass {
+
+	private static String FS= File.separator;
+	private static String[] prep = {"in", "of", "on"};
+	private static ArrayList<String> in;
+	private static ArrayList<String> of;
+	private static ArrayList<String> on;
+	
+	static void ReadDataSet() throws IOException
+	{
+		// TODO
+		// Read all files from directory
+		// Make seperate function for reading preposition 'in, of, on'
+		//
+		
+		 String path = "data"+FS+"data_stage_one"+FS+"training_set";  // Folder path 
+		 
+		  String filename, line;
+		  File folder = new File(path);
+		  File[] listOfFiles = folder.listFiles();
+		  BufferedReader br = null;
+		  for(int i=0; i < listOfFiles.length; i++)
+		  { 
+			  System.out.println(listOfFiles[i].getName());
+			  filename = path+FS+listOfFiles[i].getName();
+			  try
+			  {
+				  br= new BufferedReader(new FileReader(new File(filename)));
+				  while((line = br.readLine().toLowerCase())!= null)
+				  {
+					for(int j=0; j<3; j++)
+					{
+						//line.contentEquals(new StringBuffer(prep[j]));
+						if(line.matches("*of*"))
+							System.out.println(line);
+						
+					}
+				  }
+				  
+			  }
+			  catch(Exception e)
+			  {
+				  System.err.println("exception: "+e.getMessage() );
+			  }
+			  finally
+			  {
+				  br.close();
+			  }
+		  }
+	}
+	
+	// Adds data that contains 'of' atleast once in given sentence
+	
+	
+	static void AddToOf(String line)
+	{
+		
+	}
+	/**
+	 * @param args
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		ReadDataSet();
+		System.out.println("DONE");
+	}
+
+}
