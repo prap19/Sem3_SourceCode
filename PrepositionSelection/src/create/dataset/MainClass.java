@@ -19,10 +19,6 @@ public class MainClass {
 	
 	static void ReadDataSet() throws IOException
 	{
-		// TODO
-		// Read all files from directory
-		// Make seperate function for reading preposition 'in, of, on'
-		//
 		
 		 String path = "data"+FS+"data_stage_one"+FS+"training_set";  // Folder path 
 		 
@@ -41,7 +37,6 @@ public class MainClass {
 				  {
 					for(int j=0; j<3; j++)
 					{
-						//line.contentEquals(new StringBuffer(prep[j]));
 						StringTokenizer st = new StringTokenizer(line);
 						while(st.hasMoreTokens())
 							if(st.nextToken().equalsIgnoreCase(prep[j]))
@@ -53,19 +48,6 @@ public class MainClass {
 								System.out.println("SIZE["+j+": "+arr[j].size());
 								arr[j].add(line.toLowerCase());
 								break;
-							/*	switch(j)
-								{
-								case 0:
-										in.add(line.toLowerCase());
-										break;
-								case 1:
-										of.add(line.toLowerCase());
-										break;
-								case 2:
-										on.add(line.toLowerCase());
-										break;
-								}
-								*/
 							}
 					}
 				  }
@@ -102,9 +84,7 @@ public class MainClass {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		ReadDataSet();
-	//	WriteSeperated(arr);
-	//	WriteSeperated(in);
-	//	WriteSeperated(in);
+	
 		  System.out.println("in:"+arr[0].size()+" on:"+arr[1].size()+" of:"+arr[2].size()+" ");
 		System.out.println("DONE");
 	}
