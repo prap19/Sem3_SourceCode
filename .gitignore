@@ -6,11 +6,9 @@
 *.exe
 *.o
 *.so
-*.txt
 
 #Library #
 #####################
-.jar
 .zip
 
 # OS generated files #
@@ -21,4 +19,4 @@ Icon?
 Thumbs.db
 
 #RANDOM
-.metadata
+.metadata/*

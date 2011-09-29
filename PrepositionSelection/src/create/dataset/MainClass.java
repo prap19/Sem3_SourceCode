@@ -1,8 +1,10 @@
 package create.dataset;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -17,10 +19,10 @@ public class MainClass {
 	//private static ArrayList<String> of = new ArrayList<String>();;
 	//private static ArrayList<String> on = new ArrayList<String>();;
 	
-	static void ReadDataSet() throws IOException
+	static void ReadAndWriteDataSet(String folderName) throws IOException
 	{
 		
-		 String path = "data"+FS+"data_stage_one"+FS+"training_set";  // Folder path 
+		 String path = "data"+FS+"data_stage_one"+FS+folderName;  // Folder path 
 		 
 		  String filename, line;
 		  File folder = new File(path);
@@ -44,8 +46,7 @@ public class MainClass {
 							
 								if(arr[j] == null)
 									arr[j] = new ArrayList<String>();
-								System.err.println("MATCHED: " + prep[j]+": "+line);
-								System.out.println("SIZE["+j+": "+arr[j].size());
+								
 								arr[j].add(line.toLowerCase());
 								break;
 							}
@@ -64,27 +65,91 @@ public class MainClass {
 				  br.close();
 			  }
 		  }
+		  
+		  // Writes the entire arraylist(preposition wise seperated files)
+		  
+		  WriteSeperated(folderName);
+		  
+		  for(int i=0; i<prep.length; i++)
+		  {
+			  arr[i].clear();
+		  }
+		  
 	
 	}
 	
-	static void WriteSeperated(ArrayList<String> arr)
+	static void WriteSeperated(String folderName) throws IOException
 	{
+		String path= "data"+FS+"seperated"+FS+folderName;
+		BufferedWriter bw= null, metabw= null;
+		String metastr = "";
+		//Writing Meta files
+		try
+		{
+			metabw = new BufferedWriter(new FileWriter(new File(path+FS+"meta.info")));
+			for(int i=0; i<prep.length; i++)
+			{
+				metastr+=prep[i]+"="+arr[i].size()+"\n";
+			}
+			metabw.write(metastr);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			metabw.close();
+		}
+		for(int i=0; i<prep.length; i++)
+		{
+			String filename = path+FS+prep[i]+".txt";
+			try
+			{
+				bw = new BufferedWriter(new FileWriter(new File(filename)));
+				for(int j=0; j<arr[i].size(); j++)
+				{
+					bw.write(arr[i].get(j));
+					bw.newLine();
+				}
+			}
+			catch(Exception e)
+			{
+				System.err.println("Exception: WriteSeperated() : "+e.getMessage());
+				e.printStackTrace();
+			}
+			finally
+			{
+				try {
+					bw.close();
+					metabw.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		
 	}
 	
-	
-	static void AddToOf(String line)
-	{
-		
-	}
 	/**
 	 * @param args
 	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ReadDataSet();
-	
+		try {
+			ReadAndWriteDataSet("training_set");
+			ReadAndWriteDataSet("test_set");
+			ReadAndWriteDataSet("development_set");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+		
+		
 		  System.out.println("in:"+arr[0].size()+" on:"+arr[1].size()+" of:"+arr[2].size()+" ");
 		System.out.println("DONE");
 	}
