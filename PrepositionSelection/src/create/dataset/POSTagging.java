@@ -91,7 +91,8 @@ public class POSTagging {
 		long totalTime = System.currentTimeMillis();	
 		//posTagging.TagAll("development_set");
 		//posTagging.TagAll("test_set");
-		posTagging.TagAll("training_set");
+		//posTagging.TagAll("training_set");
+		posTagging.SampleTagging();
 		totalTime = (System.currentTimeMillis()- totalTime)/1000;
 		System.out.println("TOTAL TIME: "+totalTime/60+"mins "+totalTime%60+" secs");
 	}
