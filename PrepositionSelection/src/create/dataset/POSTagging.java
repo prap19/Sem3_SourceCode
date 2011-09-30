@@ -29,15 +29,9 @@ public class POSTagging {
 	
 	public void SampleTagging()
 	{
-<<<<<<< HEAD
 		String str =  "since my last letter , dated july 12 , the congress has cleared and the president has signed the following acts that affect budget authority , outlays , or revenues for fiscal year 2005 : the surface transportation extension act of 2005 , part iii ( public law 109-35 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the surface transportation extension act of 2005 , part iv ( public law 109-37 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; an act approving the renewal of import restrictions contained in the burmese freedom and democracy act of 2005 ( public law 109-39 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the surface transportation extension act of 2005 , part v ( public law 109-40 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the interior appropriations act , 2006 ( public law 109-54 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the energy policy act of 2005 ( public law 109-58 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the safe , accountable , flexible , efficient transportation equity act : a legacy for users ( public law 109-59 ) ; and & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the emergency supplemental appropriations act to meet immediate needs arising from the consequences of hurricane katrina , 2005 ( public law 109-61 ) . ";
 		str= str.replaceAll("\\p{Punct}|\\d","");
 		str = tagger.tagString(str);
-=======
-		String str =  "since my last letter  dated july 12  the congress has cleared and the president has signed the following acts that affect budget authority  outlays  or revenues for fiscal year 2005  the surface transportation extension act of 2005  part iii  public law 10935    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the surface transportation extension act of 2005  part iv  public law 10937    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  an act approving the renewal of import restrictions contained in the burmese freedom and democracy act of 2005  public law 10939    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the surface transportation extension act of 2005  part v  public law 10940    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the interior appropriations act  2006  public law 10954    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the energy policy act of 2005  public law 10958    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the safe  accountable  flexible  efficient transportation equity act  a legacy for users  public law 10959   and  lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the emergency supplemental appropriations act to meet immediate needs arising from the consequences of hurricane katrina  2005  public law 10961   ";
-		str = str.replaceAll("[^\\w&&[^\\s]]", "");
-	    str = tagger.tagString(str);
->>>>>>> 77858f4f074f9d903198fa8483eb4df1b5752230
 		System.out.println(str);
 	}
 	
@@ -97,19 +91,11 @@ public class POSTagging {
 	public static void main(String args[])
 	{
 		POSTagging posTagging = new POSTagging();
-<<<<<<< HEAD
 		long totalTime = System.currentTimeMillis();
 		//posTagging.SampleTagging();
 		posTagging.TagAll("development_set");
 		posTagging.TagAll("test_set");
 		posTagging.TagAll("training_set");
-=======
-		long totalTime = System.currentTimeMillis();	
-		//posTagging.TagAll("development_set");
-		//posTagging.TagAll("test_set");
-		//posTagging.TagAll("training_set");
-		posTagging.SampleTagging();
->>>>>>> 77858f4f074f9d903198fa8483eb4df1b5752230
 		totalTime = (System.currentTimeMillis()- totalTime)/1000;
 		System.out.println("TOTAL TIME: "+totalTime/60+"mins "+totalTime%60+" secs");
 	}
