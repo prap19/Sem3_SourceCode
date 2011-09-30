@@ -28,9 +28,10 @@ public class POSTagging {
 	
 	public void SampleTagging()
 	{
-		String str =  "as the highest body of elected officials in our country , we should be held to the highest ethical standards ";
-		String taggedStr = tagger.tagString(str);
-		System.out.println(taggedStr);
+		String str =  "since my last letter  dated july 12  the congress has cleared and the president has signed the following acts that affect budget authority  outlays  or revenues for fiscal year 2005  the surface transportation extension act of 2005  part iii  public law 10935    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the surface transportation extension act of 2005  part iv  public law 10937    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  an act approving the renewal of import restrictions contained in the burmese freedom and democracy act of 2005  public law 10939    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the surface transportation extension act of 2005  part v  public law 10940    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the interior appropriations act  2006  public law 10954    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the energy policy act of 2005  public law 10958    lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the safe  accountable  flexible  efficient transportation equity act  a legacy for users  public law 10959   and  lt  p  gt   amp  nbsp   amp  nbsp   amp  nbsp  the emergency supplemental appropriations act to meet immediate needs arising from the consequences of hurricane katrina  2005  public law 10961   ";
+		str = str.replaceAll("[^\\w&&[^\\s]]", "");
+	    str = tagger.tagString(str);
+		System.out.println(str);
 	}
 	
 	public void TagAll(String folderName)
