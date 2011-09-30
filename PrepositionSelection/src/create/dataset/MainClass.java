@@ -11,8 +11,8 @@ import java.util.StringTokenizer;
 
 public class MainClass {
 
-	private static String FS= File.separator;
-	private static String[] prep = {"in", "of", "on"};
+	public static String FS= File.separator;
+	public static String[] prep = {"in", "of", "on"};
 	private static ArrayList<String>[] arr = new ArrayList[prep.length];
 	
 	//private static ArrayList<String> in = new ArrayList<String>();;
