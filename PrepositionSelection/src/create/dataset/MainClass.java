@@ -22,7 +22,7 @@ public class MainClass {
 	static void ReadAndWriteDataSet(String folderName) throws IOException
 	{
 		
-		 String path = "data"+FS+"data_stage_one"+FS+folderName;  // Folder path 
+		  String path = "data"+FS+"data_stage_one"+FS+folderName;  // Folder path 
 		 
 		  String filename, line;
 		  File folder = new File(path);
@@ -37,7 +37,7 @@ public class MainClass {
 				  br= new BufferedReader(new FileReader(new File(filename)));
 				  while((line = br.readLine())!= null)
 				  {
-					for(int j=0; j<3; j++)
+					for(int j=0; j<prep.length; j++)
 					{
 						StringTokenizer st = new StringTokenizer(line);
 						while(st.hasMoreTokens())
@@ -75,7 +75,6 @@ public class MainClass {
 			  arr[i].clear();
 		  }
 		  
-	
 	}
 	
 	static void WriteSeperated(String folderName) throws IOException
@@ -139,6 +138,7 @@ public class MainClass {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
+		
 			ReadAndWriteDataSet("training_set");
 			ReadAndWriteDataSet("test_set");
 			ReadAndWriteDataSet("development_set");

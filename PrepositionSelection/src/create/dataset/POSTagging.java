@@ -16,7 +16,8 @@ public class POSTagging {
 	public POSTagging()
 	{
 		try {
-			this.tagger = new MaxentTagger("tagger"+MainClass.FS+"bidirectional-distsim-wsj-0-18.tagger") ;
+			//this.tagger = new MaxentTagger("tagger"+MainClass.FS+"bidirectional-distsim-wsj-0-18.tagger") ;
+			this.tagger = new MaxentTagger("tagger"+MainClass.FS+"left3words-wsj-0-18.tagger");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -28,9 +29,10 @@ public class POSTagging {
 	
 	public void SampleTagging()
 	{
-		String str =  "as the highest body of elected officials in our country , we should be held to the highest ethical standards ";
-		String taggedStr = tagger.tagString(str);
-		System.out.println(taggedStr);
+		String str =  "since my last letter , dated july 12 , the congress has cleared and the president has signed the following acts that affect budget authority , outlays , or revenues for fiscal year 2005 : the surface transportation extension act of 2005 , part iii ( public law 109-35 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the surface transportation extension act of 2005 , part iv ( public law 109-37 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; an act approving the renewal of import restrictions contained in the burmese freedom and democracy act of 2005 ( public law 109-39 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the surface transportation extension act of 2005 , part v ( public law 109-40 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the interior appropriations act , 2006 ( public law 109-54 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the energy policy act of 2005 ( public law 109-58 ) ; & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the safe , accountable , flexible , efficient transportation equity act : a legacy for users ( public law 109-59 ) ; and & lt ; p & gt ; & amp ; nbsp ; & amp ; nbsp ; & amp ; nbsp ; the emergency supplemental appropriations act to meet immediate needs arising from the consequences of hurricane katrina , 2005 ( public law 109-61 ) . ";
+		str= str.replaceAll("\\p{Punct}|\\d","");
+		str = tagger.tagString(str);
+		System.out.println(str);
 	}
 	
 	public void TagAll(String folderName)
@@ -58,8 +60,9 @@ public class POSTagging {
 				long time = System.currentTimeMillis();
 				while((line = br.readLine())!=null)
 				{
-					line= line.replaceAll("\\p{Punct}", "");
+					line= line.replaceAll("\\p{Punct}|\\d","");
 					bw.write(tagger.tagString(line));
+					System.out.println("[INFO] line done:"+line+" !");
 					bw.newLine();
 				}
 				time = (System.currentTimeMillis() - time)/1000;
@@ -88,9 +91,10 @@ public class POSTagging {
 	public static void main(String args[])
 	{
 		POSTagging posTagging = new POSTagging();
-		long totalTime = System.currentTimeMillis();	
-		//posTagging.TagAll("development_set");
-		//posTagging.TagAll("test_set");
+		long totalTime = System.currentTimeMillis();
+		//posTagging.SampleTagging();
+		posTagging.TagAll("development_set");
+		posTagging.TagAll("test_set");
 		posTagging.TagAll("training_set");
 		totalTime = (System.currentTimeMillis()- totalTime)/1000;
 		System.out.println("TOTAL TIME: "+totalTime/60+"mins "+totalTime%60+" secs");
