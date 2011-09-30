@@ -138,6 +138,7 @@ public class CheckDuplicateSentences {
 					if(this.sentences.containsKey(line.toLowerCase()))
 					{
 						this.sentences.put(line.toLowerCase(), this.sentences.get(line.toLowerCase()+1));
+						System.out.println(line);
 						count++;
 					}
 					else
