@@ -1,0 +1,36 @@
+CC noun
+CD Cardinal Number 
+DT Determiner 
+EX Existential there 
+FW Foreign Word 
+IN Preposision or subordinating conjunction 
+JJ Adjective 
+JJR Adjective, comparative 
+JJS Adjective, superlative 
+LS List Item Marker 
+MD Modal 
+NN Noun, singular or mass 
+NNP Proper Noun, singular 
+NNPS Proper Noun, plural 
+NNS Noun, plural 
+PDT Predeterminer 
+POS Possessive Ending 
+PRP Personal Pronoun 
+PRP$ Possessive Pronoun 
+RB Adverb 
+RBR Adverb, comparative 
+RBS Adverb, superlative 
+RP Particle 
+SYM Symbol 
+TO to 
+UH Interjection 
+VB Verb, base form 
+VBD Verb, past tense 
+VBG Verb, gerund or persent participle 
+VBN Verb, past participle 
+VBP Verb, non-3rd person singular present 
+VBZ Verb, 3rd person singular present 
+WDT Wh-determiner 
+WP Wh-pronoun 
+WP$ Possessive wh-pronoun 
+WRB Wh-adverb

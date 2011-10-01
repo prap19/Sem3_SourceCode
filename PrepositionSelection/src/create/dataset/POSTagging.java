@@ -60,7 +60,7 @@ public class POSTagging {
 				long time = System.currentTimeMillis();
 				while((line = br.readLine())!=null)
 				{
-					line= line.replaceAll("\\p{Punct}|\\d","");
+					line= line.replaceAll("\\p{Punct}|\\d","").trim();
 					bw.write(tagger.tagString(line));
 					System.out.println("[INFO] line done:"+line+" !");
 					bw.newLine();
