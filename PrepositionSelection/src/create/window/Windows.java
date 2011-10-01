@@ -57,8 +57,10 @@ public class Windows {
 							for(int k=0; k<window.size(); k++)
 								windowString += window.get(k)+" ";
 							bw.write(windowString);
+							bw.newLine();
+							System.out.println(windowString + "SIZE= "+window.size());
 						}
-						bw.newLine();
+					//	bw.newLine();
 					}
 				}
 				
@@ -87,7 +89,7 @@ public class Windows {
 		int rindex=0;
 		ArrayList<ArrayList<String>> resultArr = new ArrayList<ArrayList<String>>();
 		
-		System.out.println("CREATE WINDOW: "+line);
+		//System.out.println("CREATE WINDOW: "+line);
 		if(line.length()>0)
 		{
 			String[] tokens = line.split("\\s+");
@@ -97,14 +99,11 @@ public class Windows {
 				rindex=0;
 				if(tokens[i].equalsIgnoreCase(prep))
 				{
-					for(int j= i-this.WINDOW_SIZE/2; j < i+this.WINDOW_SIZE/2; j++)
+					for(int j= i-this.WINDOW_SIZE/2; j <= i+this.WINDOW_SIZE/2; j++)
 					{
-						//System.out.println("i: "+i+" j: "+j);
-						//System.out.println("Condition: "+((j>=0) && (j<tokens.length)));
 						if((j>=0) && (j<tokens.length))
 						{
 							result.add(rindex++, tokens[j]);
-							//System.out.println("[INFO] Token appended to result");
 						}
 					}
 				}
@@ -114,7 +113,6 @@ public class Windows {
 						//System.err.println("WINDOW: "+ result.toString()+" SIZE: "+result.size());
 						if(result.size()> this.WINDOW_SIZE)
 							System.err.println("[ERROR] WINDOW: "+ result.toString()+" SIZE: "+result.size());
-							
 					}
 			}
 			
@@ -130,6 +128,8 @@ public class Windows {
 		
 			Windows windows = new Windows();
 			windows.readTaggedAndCreateWindow("training_set");
+			windows.readTaggedAndCreateWindow("test_set");
+			windows.readTaggedAndCreateWindow("development_set");
 	}
 
 }
