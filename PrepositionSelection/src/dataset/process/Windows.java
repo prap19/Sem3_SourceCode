@@ -15,7 +15,7 @@ public class Windows {
 
 	private String FS= MainClass.FS;
 	private String[] prep = MainClass.prep;
-	private int WINDOW_SIZE=5;
+	private static int WINDOW_SIZE=5;
 	
 	public Windows()
 	{
@@ -84,7 +84,7 @@ public class Windows {
 					
 	}
 	
-	public ArrayList<ArrayList<String>> createWindows(String prep, String line)
+	public static ArrayList<ArrayList<String>> createWindows(String prep, String line)
 	{
 		int rindex=0;
 		ArrayList<ArrayList<String>> resultArr = new ArrayList<ArrayList<String>>();
@@ -99,7 +99,7 @@ public class Windows {
 				rindex=0;
 				if(tokens[i].equalsIgnoreCase(prep))
 				{
-					for(int j= i-this.WINDOW_SIZE/2; j <= i+this.WINDOW_SIZE/2; j++)
+					for(int j= i-WINDOW_SIZE/2; j <= i+WINDOW_SIZE/2; j++)
 					{
 						if((j>=0) && (j<tokens.length))
 						{
@@ -111,7 +111,7 @@ public class Windows {
 					{
 						resultArr.add(result);
 						//System.err.println("WINDOW: "+ result.toString()+" SIZE: "+result.size());
-						if(result.size()> this.WINDOW_SIZE)
+						if(result.size()> WINDOW_SIZE)
 							System.err.println("[ERROR] WINDOW: "+ result.toString()+" SIZE: "+result.size());
 					}
 			}
