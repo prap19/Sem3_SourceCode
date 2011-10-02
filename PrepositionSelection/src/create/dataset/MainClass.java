@@ -13,7 +13,9 @@ public class MainClass {
 
 	public static String FS= File.separator;
 	public static String[] prep = {"in", "of", "on"};
+	public static int NOF=5000;
 	private static ArrayList<String>[] arr = new ArrayList[prep.length];
+	
 	
 	//private static ArrayList<String> in = new ArrayList<String>();;
 	//private static ArrayList<String> of = new ArrayList<String>();;
