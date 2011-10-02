@@ -14,7 +14,7 @@ public class PerceptronAlgorithm {
 	private HashMap<String, Integer> prepMap;
 	private String FS = MainClass.FS;
 	private Double[][] weights;
-	private final Double scale_factor = 0.35;
+	private final Double scale_factor = 0.6;
 	private Double[] sum;
 	
 	public PerceptronAlgorithm() {
@@ -71,6 +71,7 @@ public class PerceptronAlgorithm {
 			for(int j=0; j<this.prepMap.size(); j++)
 			{
 				this.weights[i][j]=((new Random()).nextDouble());
+			//	this.weights[i][j] =(double)1;
 			}
 		}
 	}
@@ -93,18 +94,24 @@ public class PerceptronAlgorithm {
 		Random random = new Random(3);
 		int polarity =1;   // 1 = positive file and -1 = negative file
 		int poscount =0, negcount =0; 
+		this.randomizeWeights();
 		
 			for(int k=0; k<MainClass.prep.length; k++)
 			{
 				System.out.println("FOR: "+MainClass.prep[k]);
-				this.randomizeWeights();
-				int miscount=Integer.MAX_VALUE;
+				System.out.println("############################################################################");
+				//this.randomizeWeights();
 				
-				while(miscount > MainClass.NOF*2*0.4)
+				int iteration =1;
+				int miscount=Integer.MAX_VALUE;
+				System.out.println("Initial weight");
+				this.displayWeight();
+				while(miscount > MainClass.NOF*2*0.42)
 				{
 					try
 					{
-						System.err.println("CONDITION: "+miscount);
+						System.err.println("Iteration:"+iteration+" Error: "+miscount);
+						iteration++;
 						count=0;
 						polarity =1;
 						poscount =0;
@@ -113,13 +120,18 @@ public class PerceptronAlgorithm {
 						this.resetSum();
 						
 						posfile = new BufferedReader(new FileReader(new File("data"+FS+"window"+FS+"training_set"+FS+MainClass.prep[k]+".txt")));
+					//	posfile = new BufferedReader(new FileReader(new File("data"+FS+"window"+FS+"training_set"+FS+"in.txt")));
 						negfile = new BufferedReader(new FileReader(new File("data"+FS+"negative"+FS+"window"+FS+MainClass.prep[k]+".txt")));
+					//	negfile = new BufferedReader(new FileReader(new File("data"+FS+"negative"+FS+"window"+FS+"in.txt")));
 						String line="";
+						
+						//this.displayVector(this.sum);
+						//this.displayWeight();
 						while(count <= MainClass.NOF*2)
 						{
 							//rand = (int) (System.currentTimeMillis()%2);
 							rand = random.nextInt(2);
-							if((rand == 0) && (poscount< MainClass.NOF))
+							if(((rand == 0) && (poscount< MainClass.NOF)) || (negcount >= MainClass.NOF))
 							{
 								line = posfile.readLine();
 								polarity =1;
@@ -128,7 +140,7 @@ public class PerceptronAlgorithm {
 								//System.err.println("POSITIVE");
 							}
 							else
-								if(negcount< MainClass.NOF)
+								if((negcount< MainClass.NOF) || (poscount >= MainClass.NOF))
 								{
 									line = negfile.readLine();
 									polarity = -1;
@@ -138,19 +150,11 @@ public class PerceptronAlgorithm {
 								}
 								else
 									break;					
+							
+							if(line == null)
+								break;
 
-
-							Integer[] vector = new Integer[this.prepMap.size()];
-							for(int i=0; i< this.prepMap.size(); i++)
-								vector[i]=0;
-
-							String[] tokens= line.split("\\s+");
-							for(String token: tokens)
-							{
-								// [0]: word [1]: part of speech  
-								String[] wordsplit = token.split("/");
-								vector[this.prepMap.get(wordsplit[1])] = 1;
-							}
+							Integer[] vector = this.getFeatureVector(line);
 							miscount= adjustSum(k,vector, polarity, miscount);
 							//System.out.println("MISCOUNT: "+miscount);
 						}
@@ -185,9 +189,7 @@ public class PerceptronAlgorithm {
 		// TODO Auto-generated method stub
 		Double res = 0.0;
 		int div = 0;
-		
-		//displayVector(vector);
-		//displayWeight();
+	
 		for(int i=0; i<vector.length; i++)
 		{
 			res += this.weights[k][i]*vector[i];
@@ -208,14 +210,14 @@ public class PerceptronAlgorithm {
 			}
 		
 		if(div!=0)
-			for(int i=0; i<this.prepMap.size(); i++)
+			for(int i=0; i< vector.length; i++)
 				sum[i]+= div*vector[i];
 		
 		return miscount;
 	}
 
 
-	public void displayVector(Integer[] vector)
+	public void displayVector(Object[] vector)
 	{
 		System.out.print("[");
 		for(int i=0; i<vector.length; i++)
@@ -233,8 +235,42 @@ public class PerceptronAlgorithm {
 				System.out.print(weights[i][j]+"\t");
 			System.out.println();
 		}
-		
+		System.out.println("--------------------------------------------");
 	}
+	
+	public Integer[] getFeatureVector(String line)
+	{
+		Integer[] vector = new Integer[this.prepMap.size()];
+		for(int i=0; i< this.prepMap.size(); i++)
+			vector[i]=0;
+
+		String[] tokens= line.split("\\s+");
+		for(String token: tokens)
+		{
+			// [0]: word [1]: part of speech  
+			String[] wordsplit = token.split("/");
+			vector[this.prepMap.get(wordsplit[1])] = 1;
+		}
+		return vector;
+	}
+
+
+	public HashMap<String, Integer> getPrepMap() {
+		return prepMap;
+	}
+
+	public void setPrepMap(HashMap<String, Integer> prepMap) {
+		this.prepMap = prepMap;
+	}
+
+	public Double[][] getWeights() {
+		return weights;
+	}
+
+	public void setWeights(Double[][] weights) {
+		this.weights = weights;
+	}
+
 	
 	/**
 	 * @param args
@@ -247,6 +283,5 @@ public class PerceptronAlgorithm {
 		System.out.println("##################################################");
 		algorithm.trainWeights();
 	}
-
 }
 
