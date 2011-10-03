@@ -14,7 +14,7 @@ public class PerceptronAlgorithm {
 	private HashMap<String, Integer> prepMap;
 	private String FS = MainClass.FS;
 	private Double[][] weights;
-	private final Double scale_factor = 0.6;
+	private final Double scale_factor = 0.55;
 	private Double[] sum;
 	
 	public PerceptronAlgorithm() {
@@ -106,7 +106,7 @@ public class PerceptronAlgorithm {
 				int miscount=Integer.MAX_VALUE;
 				System.out.println("Initial weight");
 				this.displayWeight();
-				while(miscount > MainClass.NOF*2*0.42)
+				while(miscount > MainClass.NOF*2*0.44)
 				{
 					try
 					{
@@ -131,6 +131,7 @@ public class PerceptronAlgorithm {
 						{
 							//rand = (int) (System.currentTimeMillis()%2);
 							rand = random.nextInt(2);
+							
 							if(((rand == 0) && (poscount< MainClass.NOF)) || (negcount >= MainClass.NOF))
 							{
 								line = posfile.readLine();
@@ -178,7 +179,7 @@ public class PerceptronAlgorithm {
 			}
 	}
 					this.displayWeight();
-					System.out.println("Number of files read #POS: "+poscount+" #NEG: "+negcount);
+					System.out.println("Number of windows read #POS: "+poscount+" #NEG: "+negcount);
 					
 				
 }
@@ -280,8 +281,10 @@ public class PerceptronAlgorithm {
 		PerceptronAlgorithm algorithm = new PerceptronAlgorithm();
 		//algorithm.randomizeWeights();
 		//algorithm.displayWeight();
-		System.out.println("##################################################");
+		
 		algorithm.trainWeights();
+		System.out.println("##################################################");
+		algorithm.displayWeight();
 	}
 }
 

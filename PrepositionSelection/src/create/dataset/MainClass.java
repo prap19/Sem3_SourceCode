@@ -13,7 +13,7 @@ public class MainClass {
 
 	public static String FS= File.separator;
 	public static String[] prep = {"in", "of", "on"};
-	public static int NOF=8000;
+	public static int NOF=6700;
 	private static ArrayList<String>[] arr = new ArrayList[prep.length];
 	
 	

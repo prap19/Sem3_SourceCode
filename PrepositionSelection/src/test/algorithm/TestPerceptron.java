@@ -19,17 +19,15 @@ public class TestPerceptron {
 	private Double[][] weights;
 	private HashMap<String, Integer> prepMap;
 	private Integer misplaced;
-	private Integer TOTALFILE = 14000;
+	public static Integer TOTALFILE = 14000;
 	
 	public TestPerceptron()
 	{
 		algorithm = new PerceptronAlgorithm();
+		algorithm.trainWeights();
 		this.weights = algorithm.getWeights();
-		
 		this.prepMap = algorithm.getPrepMap();
 		this.misplaced = 0;
-		
-		algorithm.trainWeights();
 	}
 	
 	public void TestDataSet()
@@ -51,6 +49,7 @@ public class TestPerceptron {
 				while(((line = br.readLine()) != null) && (count > 0))
 				{
 					count--;
+					
 					Integer[] vector = this.algorithm.getFeatureVector(line);
 					argMax = this.dotProduct(vector);
 					if(argMax != i)
@@ -114,6 +113,7 @@ public class TestPerceptron {
 
 		TestPerceptron perceptron = new TestPerceptron();
 		perceptron.TestDataSet();
+		System.out.println("FINAL WEIGHTS");
 	}
 
 }
