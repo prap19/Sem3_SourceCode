@@ -15,7 +15,7 @@ public class BaseLineUnigram {
 	private String FS = MainClass.FS;
 	private HashMap<String, HashMap<String, Integer>> unigram;
 	private HashMap<String, Integer> prepMap;
-	private static Stemmer stemmer;
+	private static Stemmer stemmer = new Stemmer();;
 	
 	
 	public HashMap<String, HashMap<String, Integer>> getUnigram() {
@@ -30,7 +30,6 @@ public class BaseLineUnigram {
 	{
 		unigram = new HashMap<String, HashMap<String,Integer>>();
 		prepMap = new HashMap<String, Integer>();
-		stemmer = new Stemmer();
 	
 		for(int k=0; k< MainClass.prep.length; k++)
 		{

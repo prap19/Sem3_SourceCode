@@ -84,11 +84,12 @@ public class NegativeSample {
 					System.out.println("[ORG] "+line);
 					line = this.randomizeSentence(line.toLowerCase().replaceAll("\\p{Punct}|\\d", ""));
 					System.out.println("[RANDOM] "+line);
-					line = tagger.tagString(line);
+				//	line = tagger.tagString(line);
 					tag.write(line);
 					tag.newLine();
 					
-					ArrayList<ArrayList<String>> arr = Windows.createWindows(prep[i]+"/IN", line);
+				//	ArrayList<ArrayList<String>> arr = Windows.createWindows(prep[i]+"/IN", line); // for tagged output
+					ArrayList<ArrayList<String>> arr = Windows.createWindows(prep[i], line);   // for untagged output
 					//System.out.println("#WINDOWS: "+arr.size());
 					for(ArrayList<String> windows: arr)
 					{

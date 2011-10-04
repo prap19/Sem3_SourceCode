@@ -15,7 +15,7 @@ public class Windows {
 
 	private String FS= MainClass.FS;
 	private String[] prep = MainClass.prep;
-	private static int WINDOW_SIZE=5;
+	private static int WINDOW_SIZE=7;
 	
 	public Windows()
 	{
@@ -29,8 +29,8 @@ public class Windows {
 	{
 		BufferedReader br= null;
 		BufferedWriter bw = null;
-		String inputPath= "data"+FS+"tagged"+FS+folderName;
-		String outputPath = "data"+FS+"window"+FS+folderName;
+		String inputPath= "data"+FS+"seperated"+FS+folderName;
+		String outputPath = "data"+FS+"window"+FS+"non-tagged"+FS+folderName;
 		try
 		{
 			if((new File(outputPath).exists())!= true)
@@ -48,7 +48,9 @@ public class Windows {
 				while((line = br.readLine()) != null)
 				{
 					// '/IN' is part of speech identifier by the tagger
-					ArrayList<ArrayList<String>> windows = this.createWindows(prep[i]+"/IN", line); 
+				//	ArrayList<ArrayList<String>> windows = this.createWindows(prep[i]+"/IN", line);  // call this if input is tagged
+					ArrayList<ArrayList<String>> windows = this.createWindows(prep[i], line);  // call this if input is untagged
+					System.out.println("WINDOWS SIZE"+windows.size());
 					if(windows != null)
 					{
 						for(ArrayList<String> window: windows )

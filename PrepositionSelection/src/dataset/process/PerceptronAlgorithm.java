@@ -14,7 +14,7 @@ public class PerceptronAlgorithm {
 	private HashMap<String, Integer> prepMap;
 	private String FS = MainClass.FS;
 	private Double[][] weights;
-	private final Double scale_factor = 0.55;
+	public static Double scale_factor = 0.55;
 	private Double[] sum;
 	
 	public PerceptronAlgorithm() {
@@ -107,7 +107,7 @@ public class PerceptronAlgorithm {
 				System.out.println("Initial weight");
 				this.displayWeight();
 				while(miscount > MainClass.NOF*2*0.44)
-				{
+				{   
 					try
 					{
 						System.err.println("Iteration:"+iteration+" Error: "+miscount);

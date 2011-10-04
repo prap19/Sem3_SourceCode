@@ -49,7 +49,7 @@ public class MainClass {
 								if(arr[j] == null)
 									arr[j] = new ArrayList<String>();
 								
-								arr[j].add(line.toLowerCase());
+								arr[j].add(line.toLowerCase().replaceAll("\\p{Punct}","").trim().replaceAll("\\s+", " "));
 								break;
 							}
 					}
