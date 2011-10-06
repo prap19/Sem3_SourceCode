@@ -27,8 +27,11 @@ public class NegativeSample {
 		prepMap = new HashMap<String, Integer>();
 		for(int i=0; i<prep.length; i++)
 		{
+			//prepMap.put(prep[i]+"/IN", 0); tagged
 			prepMap.put(prep[i], 0);
+		//	System.out.println(prepMap.get(prep[i]+"/in"));
 		}
+		
 	}
 	
 	public String randomizeSentence(String line)
@@ -48,6 +51,7 @@ public class NegativeSample {
 				}while((prep[x]).equalsIgnoreCase(res[k]));
 				
 			//	System.err.println("X :="+x);
+			//	res[k]= prep[x]+"/IN";
 				res[k]= prep[x];
 			}
 			result+= res[k]+" ";
@@ -66,7 +70,8 @@ public class NegativeSample {
 		BufferedReader br= null;
 		BufferedWriter tag = null;
 		BufferedWriter win = null;
-		String inputpath  = "data"+FS+"seperated"+FS+"training_set" ;
+		//String inputpath  = "data"+FS+"tagged"+FS+"training_set" ; //tagged input
+		String inputpath  = "data"+FS+"window"+FS+"non-tagged"+FS+"training_set" ;
 		String taggedOutput = "data"+FS+"negative"+FS+"tagged";
 		String windowOutput = "data"+FS+"negative"+FS+"window";
 		MaxentTagger tagger = new MaxentTagger("tagger"+MainClass.FS+"left3words-wsj-0-18.tagger");
@@ -82,15 +87,23 @@ public class NegativeSample {
 				while((line=br.readLine())!=null)
 				{
 					System.out.println("[ORG] "+line);
-					line = this.randomizeSentence(line.toLowerCase().replaceAll("\\p{Punct}|\\d", ""));
+					line = this.randomizeSentence(line);
 					System.out.println("[RANDOM] "+line);
 				//	line = tagger.tagString(line);
 					tag.write(line);
 					tag.newLine();
 					
+					/*
+					 * remove these 2 lines below in case for POS tags feature vector
+					 *  
+					 */
+					
+					win.write(line.trim());
+					win.newLine();
+				/*	
 				//	ArrayList<ArrayList<String>> arr = Windows.createWindows(prep[i]+"/IN", line); // for tagged output
 					ArrayList<ArrayList<String>> arr = Windows.createWindows(prep[i], line);   // for untagged output
-					//System.out.println("#WINDOWS: "+arr.size());
+					System.out.println("#WINDOWS: "+arr.size());
 					for(ArrayList<String> windows: arr)
 					{
 						String str="";
@@ -102,6 +115,7 @@ public class NegativeSample {
 						win.write(str.trim());
 						win.newLine();
 					}
+					*/
 				}
 				
 			}
@@ -139,6 +153,7 @@ public class NegativeSample {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 }

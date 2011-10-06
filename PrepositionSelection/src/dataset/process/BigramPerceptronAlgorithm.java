@@ -117,7 +117,7 @@ public class BigramPerceptronAlgorithm {
 			vector[7*i+0] = getProbability(tokens, 0, 3);
 			vector[7*i+1] = getProbability(tokens, 1, 3);
 			vector[7*i+2] = getProbability(tokens, 2, 3);
-			vector[7*i+3] = 1.0;
+			vector[7*i+3] = 0.33;
 			vector[7*i+4] = getProbability(tokens, 3, 4);
 			vector[7*i+5] = getProbability(tokens, 3, 5);
 			vector[7*i+6] = getProbability(tokens, 3, 6);
@@ -145,7 +145,7 @@ public class BigramPerceptronAlgorithm {
 			int miscount=Integer.MAX_VALUE;
 			System.out.println("Initial weight");
 			this.displayWeight();
-			while(miscount > MainClass.NOF*2*0.35)
+			while(miscount > MainClass.NOF*2*0.41)
 			{
 				try
 				{

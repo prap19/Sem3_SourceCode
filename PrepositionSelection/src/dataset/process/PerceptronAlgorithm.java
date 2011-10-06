@@ -14,7 +14,7 @@ public class PerceptronAlgorithm {
 	private HashMap<String, Integer> prepMap;
 	private String FS = MainClass.FS;
 	private Double[][] weights;
-	public static Double scale_factor = 0.55;
+	public static Double scale_factor = 0.35;
 	private Double[] sum;
 	
 	public PerceptronAlgorithm() {
@@ -106,7 +106,7 @@ public class PerceptronAlgorithm {
 				int miscount=Integer.MAX_VALUE;
 				System.out.println("Initial weight");
 				this.displayWeight();
-				while(miscount > MainClass.NOF*2*0.44)
+				while(miscount > MainClass.NOF*2*0.468)
 				{   
 					try
 					{
@@ -120,9 +120,7 @@ public class PerceptronAlgorithm {
 						this.resetSum();
 						
 						posfile = new BufferedReader(new FileReader(new File("data"+FS+"window"+FS+"training_set"+FS+MainClass.prep[k]+".txt")));
-					//	posfile = new BufferedReader(new FileReader(new File("data"+FS+"window"+FS+"training_set"+FS+"in.txt")));
 						negfile = new BufferedReader(new FileReader(new File("data"+FS+"negative"+FS+"window"+FS+MainClass.prep[k]+".txt")));
-					//	negfile = new BufferedReader(new FileReader(new File("data"+FS+"negative"+FS+"window"+FS+"in.txt")));
 						String line="";
 						
 						//this.displayVector(this.sum);
@@ -244,8 +242,10 @@ public class PerceptronAlgorithm {
 		Integer[] vector = new Integer[this.prepMap.size()];
 		for(int i=0; i< this.prepMap.size(); i++)
 			vector[i]=0;
-
+		
+		//System.out.println(line);
 		String[] tokens= line.split("\\s+");
+		//System.err.println(line);
 		for(String token: tokens)
 		{
 			// [0]: word [1]: part of speech  

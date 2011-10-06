@@ -31,6 +31,8 @@ public class Windows {
 		BufferedWriter bw = null;
 		String inputPath= "data"+FS+"seperated"+FS+folderName;
 		String outputPath = "data"+FS+"window"+FS+"non-tagged"+FS+folderName;
+		//String inputPath= "data"+FS+"tagged"+FS+folderName;
+		//String outputPath = "data"+FS+"window"+FS+folderName;
 		try
 		{
 			if((new File(outputPath).exists())!= true)

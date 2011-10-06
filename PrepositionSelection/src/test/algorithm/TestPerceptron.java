@@ -19,7 +19,9 @@ public class TestPerceptron {
 	private Double[][] weights;
 	private HashMap<String, Integer> prepMap;
 	private Integer misplaced;
-	public static Integer TOTALFILE = 14000;
+	public static Integer TOTALFILE = 6700;
+	public Integer[] error; 
+	public Integer[] prepTotal;
 	
 	public TestPerceptron()
 	{
@@ -28,6 +30,9 @@ public class TestPerceptron {
 		this.weights = algorithm.getWeights();
 		this.prepMap = algorithm.getPrepMap();
 		this.misplaced = 0;
+		error= new Integer[MainClass.prep.length];
+		prepTotal = new Integer[MainClass.prep.length];
+		
 	}
 	
 	public void TestDataSet()
@@ -36,11 +41,15 @@ public class TestPerceptron {
 		BufferedReader br = null;
 		BufferedWriter bw = null;
 		int argMax;
+		int n=0, totalMisplaced=0;
+		
 		try
 		{
 			this.misplaced =0;
 			for(int i=0; i< MainClass.prep.length; i++)
 			{
+				error[i]=0;
+				prepTotal[i]=0;
 				int count = this.TOTALFILE;
 				
 				br = new BufferedReader(new FileReader(new File(inputFile+FS+MainClass.prep[i]+".txt")));
@@ -49,24 +58,32 @@ public class TestPerceptron {
 				while(((line = br.readLine()) != null) && (count > 0))
 				{
 					count--;
-					
+					n++;
+					prepTotal[i]++;
 					Integer[] vector = this.algorithm.getFeatureVector(line);
 					argMax = this.dotProduct(vector);
 					if(argMax != i)
 					{
-						System.out.println("Error found for "+MainClass.prep[i] );
+						//System.out.println("Error found for "+MainClass.prep[i] );
 						bw.write(line+"  ------- PREDICTED: "+MainClass.prep[argMax]);
 						bw.newLine();
 						this.misplaced++;
+						totalMisplaced++;
+						error[i]++;
 					}
 				}
 				
+			
 			}
-			System.out.println("Efficiency: "+(double)(1 - (double)(this.misplaced)/(this.TOTALFILE*MainClass.prep.length)));
+			for(int i=0; i<MainClass.prep.length; i++)
+				System.out.println("EFFICIENCY FOR: "+MainClass.prep[i]+"("+error[i]+"):"+(double)(1 - (double)error[i]/prepTotal[i] ));
+			System.out.println("OVERALL Efficiency: "+(double)(1 - (double)(totalMisplaced)/(n*MainClass.prep.length)));
+			
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			System.exit(0);
 		}
 		finally
 		{
