@@ -1,0 +1,300 @@
+prprabhu/train_images/000001.jpg,shopping;city;storefront                                                                 
+prprabhu/train_images/000002.jpg,plant;natural;gardening                                                                  
+prprabhu/train_images/000003.jpg,salamander;animal;brown                                                                  
+prprabhu/train_images/000004.jpg,chalkboard;sign;list                                                                     
+prprabhu/train_images/000005.jpg,frog;animal;green                                                                        
+prprabhu/train_images/000006.jpg,city;sky;buildings                                                                       
+prprabhu/train_images/000007.jpg,dance;martialarts;white                                                                  
+prprabhu/train_images/000008.jpg,raccoon;animal;nature                                                                    
+prprabhu/train_images/000009.jpg,restaurantsign;chicken;red                                                               
+prprabhu/train_images/000010.jpg,airplane;airline;blue                                                                    
+prprabhu/train_images/000006.jpg,buildings;sky;lamppost                                                                   
+prprabhu/train_images/000007.jpg,performers;capoeira;asphalt                                                              
+prprabhu/train_images/000008.jpg,raccoon;wood;animal                                                                      
+prprabhu/train_images/000009.jpg,sign;restaurant;red                                                                      
+prprabhu/train_images/000010.jpg,airplane;southwest;airport                                                               
+prprabhu/train_images/000006.jpg,helloword;buildings;apartments                                                           
+prprabhu/train_images/000007.jpg,mens;fighting;jumnastics                                                                 
+prprabhu/train_images/000008.jpg,animal;polarbear;greyincolour                                                            
+prprabhu/train_images/000009.jpg,redincolour;advertisement;lichachick                                                     
+prprabhu/train_images/000010.jpg,aeroplane;landing;blueincolour                                                           
+prprabhu/train_images/000001.jpg,blueincolour;people;shopping                                                             
+prprabhu/train_images/000002.jpg,plant;mud;greengrass                                                                     
+prprabhu/train_images/000003.jpg,animal;brownincolour;snake                                                               
+prprabhu/train_images/000004.jpg,blackincolour;board;advertisement                                                        
+prprabhu/train_images/000005.jpg,frog;greenincolour;animal                                                                
+prprabhu/train_images/000006.jpg,buildings;sky;signal                                                                     
+prprabhu/train_images/000007.jpg,road;men;women                                                                           
+prprabhu/train_images/000008.jpg,animal;Grey;wood                                                                         
+prprabhu/train_images/000009.jpg,hen;red;restaurant                                                                       
+prprabhu/train_images/000010.jpg,aeroplane;sky;trees                                                                      
+prprabhu/train_images/000006.jpg,city;malls;tallest                                                                       
+prprabhu/train_images/000007.jpg,dance;mad;fight                                                                          
+prprabhu/train_images/000008.jpg,capture;alone;wildlife                                                                   
+prprabhu/train_images/000009.jpg,far;chicks;food                                                                          
+prprabhu/train_images/000010.jpg,colourfull;picnic;special                                                                
+prprabhu/train_images/000001.jpg,street;evening;uncrowed                                                                  
+prprabhu/train_images/000002.jpg,planting;tear;aforestation                                                               
+prprabhu/train_images/000003.jpg,python;childhood;escape                                                                  
+prprabhu/train_images/000004.jpg,menucard;tarrif;getaway                                                                  
+prprabhu/train_images/000005.jpg,beware;clocs;focues                                                                      
+prprabhu/train_images/000001.jpg,decorative;building;pavement                                                             
+prprabhu/train_images/000002.jpg,soil;plant;nails                                                                         
+prprabhu/train_images/000003.jpg,dirty;poisonous;dirty                                                                    
+prprabhu/train_images/000004.jpg,board;letters;blue                                                                       
+prprabhu/train_images/000005.jpg,eyes;brown;frightening                                                                   
+prprabhu/train_images/000006.jpg,buidings;sky;blue                                                                        
+prprabhu/train_images/000007.jpg,gathering;sports;roadside                                                                
+prprabhu/train_images/000008.jpg,animal;eyes;wooden                                                                       
+prprabhu/train_images/000009.jpg,board;restaurant;red                                                                     
+prprabhu/train_images/000010.jpg,aeroplane;blue;runaway                                                                   
+prprabhu/train_images/000001.jpg,giftshowroom;blue;rectangular                                                            
+prprabhu/train_images/000002.jpg,plant;green;hands                                                                        
+prprabhu/train_images/000003.jpg,insects;woodenfloor;mud                                                                  
+prprabhu/train_images/000004.jpg,legs;black;board                                                                         
+prprabhu/train_images/000005.jpg,froge;eyes;mouth                                                                         
+prprabhu/train_images/000001.jpg,woman;window;store                                                                       
+prprabhu/train_images/000002.jpg,dirt;plant;hands                                                                         
+prprabhu/train_images/000003.jpg,reptile;wood;dirt                                                                        
+prprabhu/train_images/000004.jpg,chalkboard;chalk;legs                                                                    
+prprabhu/train_images/000005.jpg,toad;eyes;mouth                                                                          
+prprabhu/train_images/000006.jpg,city;sky;stoplight                                                                       
+prprabhu/train_images/000007.jpg,male;dancer;croud                                                                        
+prprabhu/train_images/000008.jpg,racoon;wood;plants                                                                       
+prprabhu/train_images/000009.jpg,advertisement;chicken;plants                                                             
+prprabhu/train_images/000010.jpg,southwest;airplane;fence                                                                 
+prprabhu/train_images/000006.jpg,building;Church;Tower                                                                    
+prprabhu/train_images/000007.jpg,pepole;Fight;White                                                                       
+prprabhu/train_images/000008.jpg,Wood;Animal;Black                                                                        
+prprabhu/train_images/000009.jpg,red;board;indication                                                                     
+prprabhu/train_images/000010.jpg,Plane;Wings;Blue                                                                         
+prprabhu/train_images/000006.jpg,sky;clouds;building                                                                      
+prprabhu/train_images/000007.jpg,people;building;road                                                                     
+prprabhu/train_images/000008.jpg,animal;nails;hairs                                                                       
+prprabhu/train_images/000009.jpg,board;advertisement;red                                                                  
+prprabhu/train_images/000010.jpg,aeroplane;sky;ground                                                                     
+prprabhu/train_images/000001.jpg,shops;people;buildings                                                                   
+prprabhu/train_images/000002.jpg,plant;soil;hands                                                                         
+prprabhu/train_images/000003.jpg,crowling;animal;tail                                                                     
+prprabhu/train_images/000004.jpg,board;characters;legs                                                                    
+prprabhu/train_images/000005.jpg,frog;animal;eyes                                                                         
+prprabhu/train_images/000001.jpg,MALL;BLACK;LADY                                                                          
+prprabhu/train_images/000002.jpg,SOIL;LEAF;HANDS                                                                          
+prprabhu/train_images/000003.jpg,SNAKE;MATEL;FLOOR                                                                        
+prprabhu/train_images/000004.jpg,NOTICE;OUTSIDE;FOOD                                                                      
+prprabhu/train_images/000005.jpg,FROG;CLOSE;EYES                                                                          
+prprabhu/train_images/000006.jpg,TALL;BUILDING;SKY                                                                        
+prprabhu/train_images/000007.jpg,DANCING;ROAD;WHITE                                                                       
+prprabhu/train_images/000008.jpg,ANIMAL;CUTE;STANDING                                                                     
+prprabhu/train_images/000009.jpg,HOARDING;RED;CHICHEN                                                                     
+prprabhu/train_images/000010.jpg,AIRPLANE;BLUE;RUNWAY                                                                     
+prprabhu/train_images/000001.jpg,mens;street;black                                                                        
+prprabhu/train_images/000002.jpg,sand;green;hands                                                                         
+prprabhu/train_images/000003.jpg,snake;land;grey                                                                          
+prprabhu/train_images/000004.jpg,black;board;pink                                                                         
+prprabhu/train_images/000005.jpg,frog;green;land                                                                          
+prprabhu/train_images/000001.jpg,store;shop;city                                                                          
+prprabhu/train_images/000002.jpg,plant;soil;organic                                                                       
+prprabhu/train_images/000003.jpg,lizard;tree;night                                                                        
+prprabhu/train_images/000004.jpg,market;local;food                                                                        
+prprabhu/train_images/000005.jpg,frog;nature;life                                                                         
+prprabhu/train_images/000006.jpg,skyscrapers;buildings;skyline                                                            
+prprabhu/train_images/000007.jpg,entertainment;street dancing;acrobatics                                                  
+prprabhu/train_images/000008.jpg,raccoon;cute animals;got food                                                            
+prprabhu/train_images/000009.jpg,local eateries;restaurants;dining places                                                 
+prprabhu/train_images/000010.jpg,Southwest Airlines;airliner pictures;taxiing airplane                                    
+prprabhu/train_images/000001.jpg,downtown shopping;local stores;things to do                                              
+prprabhu/train_images/000002.jpg,lady with plant;transplanting;plant collecting                                           
+prprabhu/train_images/000003.jpg,lizard;salamander;amphibian                                                              
+prprabhu/train_images/000004.jpg,farmers market;food shopping;Davis Square                                                
+prprabhu/train_images/000005.jpg,frog;amphibian;wildlife photos                                                           
+prprabhu/train_images/000006.jpg,building;streetlight;signal                                                              
+prprabhu/train_images/000007.jpg,people;camera;wall                                                                       
+prprabhu/train_images/000008.jpg,eyes;nose;wood                                                                           
+prprabhu/train_images/000009.jpg,chicken;grass;sky                                                                        
+prprabhu/train_images/000010.jpg,airplane;wings;blue                                                                      
+prprabhu/train_images/000001.jpg,people;shop;jacket                                                                       
+prprabhu/train_images/000002.jpg,hands;plant;leaves                                                                       
+prprabhu/train_images/000003.jpg,leg;wood;tail                                                                            
+prprabhu/train_images/000004.jpg,board;legs;letters                                                                       
+prprabhu/train_images/000005.jpg,frog;eye;mouth                                                                           
+prprabhu/train_images/000006.jpg,Sky;Blue;Buildings                                                                       
+prprabhu/train_images/000007.jpg,Dancing;Crowd;Gate                                                                       
+prprabhu/train_images/000008.jpg,Racoon;Black;Wood                                                                        
+prprabhu/train_images/000009.jpg,Chicken;Red;Sign                                                                         
+prprabhu/train_images/000010.jpg,Aeroplane;Blue;Red                                                                       
+prprabhu/train_images/000001.jpg,banner;toy dog;Blue                                                                      
+prprabhu/train_images/000002.jpg,green;hand;hair                                                                          
+prprabhu/train_images/000003.jpg,legs;mad;wooden                                                                          
+prprabhu/train_images/000004.jpg,legs;blackboard;pink                                                                     
+prprabhu/train_images/000005.jpg,eye;legs;mouth                                                                           
+prprabhu/train_images/000006.jpg,building;lamp;sky                                                                        
+prprabhu/train_images/000007.jpg,white;shoes;belt                                                                         
+prprabhu/train_images/000008.jpg,wooden;nose;eye                                                                          
+prprabhu/train_images/000009.jpg,red;green;lamp                                                                           
+prprabhu/train_images/000010.jpg,red;blue;tree                                                                            
+prprabhu/train_images/000001.jpg,Bok Companies Store;Cement Lion;9 People                                                 
+prprabhu/train_images/000002.jpg,Plant;Seedling;Hands                                                                     
+prprabhu/train_images/000003.jpg,Lizard;Wooden Floor;Brown                                                                
+prprabhu/train_images/000004.jpg,Blackboard;Blue Chalk;Davies Square Farmers Market                                       
+prprabhu/train_images/000005.jpg,Frog;Green;leaf                                                                          
+prprabhu/train_images/000006.jpg,city scape;city buildings;blue sky                                                       
+prprabhu/train_images/000007.jpg,dancing;street talent;tourists                                                           
+prprabhu/train_images/000008.jpg,raccoons;wildlife;nature shot                                                            
+prprabhu/train_images/000009.jpg,road sign;restaurant sign;chicken                                                        
+prprabhu/train_images/000010.jpg,Southwest Airlines;plane;airport                                                         
+prprabhu/train_images/000001.jpg,shopping district;statue;shoppers                                                        
+prprabhu/train_images/000002.jpg,gardening;young plant;planting                                                           
+prprabhu/train_images/000003.jpg,nature;salamander;brown                                                                  
+prprabhu/train_images/000004.jpg,Farmers Market;sign;Davis Square                                                         
+prprabhu/train_images/000005.jpg,Toad;Nature shot;animal picture                                                          
+prprabhu/train_images/000001.jpg,SHOWROOM;most of them wearing black;beautiful                                            
+prprabhu/train_images/000002.jpg,soil;leaves;hands                                                                        
+prprabhu/train_images/000003.jpg,matel;snake;wood                                                                         
+prprabhu/train_images/000004.jpg,board;notice;menu                                                                        
+prprabhu/train_images/000005.jpg,frog;cute;looking                                                                        
+prprabhu/train_images/000006.jpg,sky;building;light                                                                       
+prprabhu/train_images/000007.jpg,people;gate;standing                                                                     
+prprabhu/train_images/000008.jpg,animal;wood;see some place                                                               
+prprabhu/train_images/000009.jpg,red colour board;grass;wire                                                              
+prprabhu/train_images/000010.jpg,aeroplane;blue colour;tree                                                               
+prprabhu/train_images/000006.jpg,tall building;signal;lamp                                                                
+prprabhu/train_images/000007.jpg,road;show;nice                                                                           
+prprabhu/train_images/000008.jpg,cute;looking;brown                                                                       
+prprabhu/train_images/000009.jpg,sign;red;food                                                                            
+prprabhu/train_images/000010.jpg,plane;blue;standing                                                                      
+prprabhu/train_images/000006.jpg,Clock Tower;Corporate Buildings;Multi storey building                                    
+prprabhu/train_images/000007.jpg,Street show;dance show;spectators on street show                                         
+prprabhu/train_images/000008.jpg,rare species;wild animals;fur animals                                                    
+prprabhu/train_images/000009.jpg,highway resturant;special chicken ;non veg resturant                                     
+prprabhu/train_images/000010.jpg,southwest airlines;airpot;flight                                                         
+prprabhu/train_images/000001.jpg,store;people;statue                                                                      
+prprabhu/train_images/000002.jpg,plant;dirt;hands                                                                         
+prprabhu/train_images/000003.jpg,salamander;brown;wood                                                                    
+prprabhu/train_images/000004.jpg,board;words;information                                                                  
+prprabhu/train_images/000005.jpg,toad;green;reptile                                                                       
+prprabhu/train_images/000006.jpg,buildings;lamp;traffic light                                                             
+prprabhu/train_images/000007.jpg,men;dance;crowd                                                                          
+prprabhu/train_images/000008.jpg,racoons;wood;claws                                                                       
+prprabhu/train_images/000009.jpg,billboard;chicken;red                                                                    
+prprabhu/train_images/000010.jpg,airplane;blue;red                                                                        
+prprabhu/train_images/000001.jpg,Building;Shop;Street                                                                     
+prprabhu/train_images/000002.jpg,Sand;Plant;Ground                                                                        
+prprabhu/train_images/000003.jpg,Wood;Lizard;Insect                                                                       
+prprabhu/train_images/000004.jpg,Black board;Notice;News                                                                  
+prprabhu/train_images/000005.jpg,Frog;Big frog;Fat frog                                                                   
+prprabhu/train_images/000001.jpg,WOMEN;blue ;mall                                                                         
+prprabhu/train_images/000002.jpg,leaf;hand;green                                                                          
+prprabhu/train_images/000003.jpg,snake;floor;light green                                                                  
+prprabhu/train_images/000004.jpg,poster;black;stand                                                                       
+prprabhu/train_images/000005.jpg,frag;brown;stone                                                                         
+prprabhu/train_images/000006.jpg,ancient;building;skyscraper                                                              
+prprabhu/train_images/000007.jpg,monument;sports;crowd                                                                    
+prprabhu/train_images/000008.jpg,animal;hairy;small                                                                       
+prprabhu/train_images/000009.jpg,restaurant;chick;chicken                                                                 
+prprabhu/train_images/000010.jpg,airplane;runway;southwest                                                                
+prprabhu/train_images/000001.jpg,window ;shopping;people                                                                  
+prprabhu/train_images/000002.jpg,plant;root;soil                                                                          
+prprabhu/train_images/000003.jpg,reptile;snake;wavy                                                                       
+prprabhu/train_images/000004.jpg,square;farmers;market                                                                    
+prprabhu/train_images/000005.jpg,frog;animal;black                                                                        
+prprabhu/train_images/000006.jpg,building;lamp;signal                                                                     
+prprabhu/train_images/000007.jpg,fight;photo;building                                                                     
+prprabhu/train_images/000008.jpg,animal;wood;watching                                                                     
+prprabhu/train_images/000009.jpg,restaurant;red;chicken                                                                   
+prprabhu/train_images/000010.jpg,flight;blue;red                                                                          
+prprabhu/train_images/000001.jpg,shopping;building;mall                                                                   
+prprabhu/train_images/000002.jpg,plant;soil;hand                                                                          
+prprabhu/train_images/000003.jpg,snake;doll;copper                                                                        
+prprabhu/train_images/000004.jpg,board;market;black                                                                       
+prprabhu/train_images/000005.jpg,frog;eyes;watching                                                                       
+prprabhu/train_images/000006.jpg,skyscrapercity;Buildings;Blue                                                            
+prprabhu/train_images/000007.jpg,Fight;Spain;Crowd                                                                        
+prprabhu/train_images/000008.jpg,Animal;Rodent;Nature                                                                     
+prprabhu/train_images/000009.jpg,Restaurant;Chicken;Food                                                                  
+prprabhu/train_images/000010.jpg,Aricraft;Landing;Flight                                                                  
+prprabhu/train_images/000001.jpg,Shopping;People;Shops                                                                    
+prprabhu/train_images/000002.jpg,Plant;Soil;Growth                                                                        
+prprabhu/train_images/000003.jpg,Lizard;Reptile;Creepy                                                                    
+prprabhu/train_images/000004.jpg,Market;Board;Sign                                                                        
+prprabhu/train_images/000005.jpg,Nature;Toad;Pound                                                                        
+prprabhu/train_images/000006.jpg,multistoried building;blue sky;adjacent buildings                                        
+prprabhu/train_images/000007.jpg,Fight;Viewers;road                                                                       
+prprabhu/train_images/000008.jpg,panda;black;white                                                                        
+prprabhu/train_images/000009.jpg,Chick;Hoarding;Road                                                                      
+prprabhu/train_images/000010.jpg,Aeroplane;blue;ground                                                                    
+prprabhu/train_images/000001.jpg,BUILDING;COLOUR  GREY;PERSONS  4                                                         
+prprabhu/train_images/000002.jpg,PLANT;GREEN;HANDS                                                                        
+prprabhu/train_images/000003.jpg,BROWN;INSECT;GROUND                                                                      
+prprabhu/train_images/000004.jpg,POSTER;BLACKBOARD;PEOPLE                                                                 
+prprabhu/train_images/000005.jpg,FROG;BROWN;BIG  EYES                                                                     
+prprabhu/train_images/000006.jpg,BUILDING;BLUE SKY;CLOUDS                                                                 
+prprabhu/train_images/000007.jpg,PEOPLE;ROAD;ACROBATICS                                                                   
+prprabhu/train_images/000008.jpg,WOOD;WILD  ANIMAL;STANDING                                                               
+prprabhu/train_images/000009.jpg,RESTAURANT;CHICKEN;HIGHWAY                                                               
+prprabhu/train_images/000010.jpg,AIRLINE;COLOUR  BLUE;LANDING                                                             
+prprabhu/train_images/000006.jpg,signal lamp; street light;tall buildings                                                 
+prprabhu/train_images/000007.jpg,black wrestler;audience;white wrestler                                                   
+prprabhu/train_images/000008.jpg,standing mangoose;sleeping mangoose;large tree                                           
+prprabhu/train_images/000009.jpg,chicken;restaurant;2km                                                                   
+prprabhu/train_images/000010.jpg,airplane;southwest;runway                                                                
+prprabhu/train_images/000001.jpg,An Egyptian sculpture;Bok Companies;A white lady                                         
+prprabhu/train_images/000002.jpg,soil;A plant;nailpolished finger                                                         
+prprabhu/train_images/000003.jpg,A lizard;brownish color;wooden surface                                                   
+prprabhu/train_images/000004.jpg,A market;the timings;Things available                                                    
+prprabhu/train_images/000005.jpg,A frog;Brown ;on soil                                                                    
+prprabhu/train_images/000001.jpg,shop open;shop closed;Open  time 9 AM to10 PM                                            
+prprabhu/train_images/000002.jpg,grow trees;Plant more trees;Save world                                                   
+prprabhu/train_images/000003.jpg,insect;snake like lizard;poisonus                                                        
+prprabhu/train_images/000004.jpg,market open;Market closed;now available                                                  
+prprabhu/train_images/000005.jpg,frog;hopping frog;sleeping                                                               
+prprabhu/train_images/000001.jpg,Natural Phenomenon;Very Lot of People Walking;Outdoor Image                              
+prprabhu/train_images/000002.jpg,Cultivation of Flowers;Ground;Girl                                                       
+prprabhu/train_images/000003.jpg,Snake;Outdoor;Wood                                                                       
+prprabhu/train_images/000004.jpg,Objects;Color;Semantics                                                                  
+prprabhu/train_images/000005.jpg,Frog;Natural ;One                                                                        
+prprabhu/train_images/000006.jpg,blue sky;red signal;tall buildings                                                       
+prprabhu/train_images/000007.jpg,the crowd;struggling men;road show                                                       
+prprabhu/train_images/000008.jpg,animal;looking food;browny                                                               
+prprabhu/train_images/000009.jpg,the chiken;island;green                                                                  
+prprabhu/train_images/000010.jpg,airport;aeroplane;blue and red                                                           
+prprabhu/train_images/000001.jpg,shopping mall;blackman;walking woman                                                     
+prprabhu/train_images/000002.jpg,the tree;soil;hands                                                                      
+prprabhu/train_images/000003.jpg,snake;floor;grey                                                                         
+prprabhu/train_images/000004.jpg,blackbord;litterature;legs                                                               
+prprabhu/train_images/000005.jpg,frog;brwon;eyes                                                                          
+prprabhu/train_images/000006.jpg,Three tall buildings;Highway;Sky                                                         
+prprabhu/train_images/000007.jpg,fight;Road;Two                                                                           
+prprabhu/train_images/000008.jpg,Animal;Cute;Wood                                                                         
+prprabhu/train_images/000009.jpg,Board;Chicken;Restaurant                                                                 
+prprabhu/train_images/000010.jpg,Aeroplane;Airport;Landing                                                                
+prprabhu/train_images/000001.jpg,Blue;Name Board;Men                                                                      
+prprabhu/train_images/000002.jpg,mud;green leaf;hands                                                                     
+prprabhu/train_images/000003.jpg,Door;Iron Snake;wood                                                                     
+prprabhu/train_images/000004.jpg,Light Blue;Dark Blue;Pink                                                                
+prprabhu/train_images/000005.jpg,Frog;Eyes;stone                                                                          
+prprabhu/train_images/000006.jpg,building;height;huge                                                                     
+prprabhu/train_images/000007.jpg,fight;street;public                                                                      
+prprabhu/train_images/000008.jpg,animal;wild;grey                                                                         
+prprabhu/train_images/000009.jpg,board;name;emblem                                                                        
+prprabhu/train_images/000010.jpg,flight;blue;travel                                                                       
+prprabhu/train_images/000006.jpg,Blue;Sky;Building                                                                        
+prprabhu/train_images/000007.jpg,White;Pant;hand                                                                          
+prprabhu/train_images/000008.jpg,Brown;Wood;white                                                                         
+prprabhu/train_images/000009.jpg,Red;White;Board                                                                          
+prprabhu/train_images/000010.jpg,Aeroplane;Blue;RED                                                                       
+prprabhu/train_images/000001.jpg,building;street;mall                                                                     
+prprabhu/train_images/000002.jpg,soil;hand;green                                                                          
+prprabhu/train_images/000003.jpg,snake;wood;single                                                                        
+prprabhu/train_images/000004.jpg,board;black;street                                                                       
+prprabhu/train_images/000005.jpg,frog;animal;eyes                                                                         
+prprabhu/train_images/000006.jpg,a big building;the building background was beautiful; scenery was exelent                
+prprabhu/train_images/000007.jpg,this is a game show;two man creating pugilism;this is a wonderfull game show             
+prprabhu/train_images/000008.jpg,thi is a sweet bear ;very beautiful animal;thi is chubby animal                          
+prprabhu/train_images/000009.jpg,it is advertisement;background scenery was exelent;this is chicken speciality restaurant 
+prprabhu/train_images/000010.jpg,this an airpot;airship stant by land;background scenery was exelent                      
+prprabhu/train_images/000001.jpg,showroom;orange;5 men                                                                    
+prprabhu/train_images/000002.jpg,plant;green;save trees                                                                   
+prprabhu/train_images/000003.jpg,snake;save snake;mud                                                                     
+prprabhu/train_images/000004.jpg,farmers;advertisement board;publicity                                                    
+prprabhu/train_images/000005.jpg,frog;green;hunry frog

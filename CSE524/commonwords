@@ -1,0 +1,207 @@
+prprabhu/train_images/000001.jpg
+----------------------------------
+building(9)
+shopping(9)
+store(6)
+showroom(6)
+blueincolour(3): { blue in colour	binocular	blinker	bluegill	blindly	bluntly }
+decorative(3)
+giftshowroom(3): { gift showroom	gift-showroom	Kodachrome }
+street(3)
+people(3)
+window (3)
+shops(3)
+woman(3)
+natural phenomenon(3)
+banner(3)
+an egyptian sculpture(3): { Egyptian	Egyptians	eruption	Capetian	option }
+mens(3): { Menes	Mensa	means	men's	menus }
+bok companies store(3): { book	Bork	bock	Bk	bk }
+women(3)
+shopping mall(3)
+shop open(3)
+downtown shopping(3)
+blue(3)
+shopping district(3)
+mall(3)
+
+___________________________________________
+prprabhu/train_images/000002.jpg
+----------------------------------
+plant(36)
+soil(15)
+sand(6)
+green(3)
+grow trees(3)
+planting(3)
+leaf(3)
+mud(3)
+hands(3)
+lady with plant(3)
+gardening(3)
+dirt(3)
+cultivation of flowers(3)
+the tree(3)
+
+___________________________________________
+prprabhu/train_images/000003.jpg
+----------------------------------
+snake(24)
+lizard(12)
+salamander(6)
+reptile(6)
+matel(3): { mattel	Martel	Mattel	ma tel	ma-tel	Madel }
+wood(3)
+door(3)
+insect(3)
+insects(3)
+python(3)
+leg(3)
+a lizard(3)
+nature(3)
+crowling(3): { crawling	crow ling	crow-ling	growling	caroling }
+dirty(3)
+brown(3)
+legs(3)
+animal(3)
+
+___________________________________________
+prprabhu/train_images/000004.jpg
+----------------------------------
+board(21)
+chalkboard(6)
+market(6)
+farmers market(6)
+poster(6)
+legs(6)
+light blue(3)
+menucard(3): { menu card	menu-card	Menard	menaced	Menkar }
+a market(3)
+blackincolour(3): { black in colour	laconically	blankly	volcanically	Bullwinkle	biological }
+blackbord(3): { blackboard	blackbird	Blackbeard	blackbirds	blackboards }
+market open(3)
+farmers(3)
+blackboard(3)
+black board(3)
+square(3)
+notice(3)
+objects(3)
+black(3)
+
+___________________________________________
+prprabhu/train_images/000005.jpg
+----------------------------------
+frog(60)
+toad(9)
+frag(3)
+froge(3): { frog	fridge	forge	frig	forage }
+nature(3)
+a frog(3)
+beware(3)
+eye(3)
+eyes(3)
+
+___________________________________________
+prprabhu/train_images/000006.jpg
+----------------------------------
+building(18)
+city(9)
+sky(9)
+buildings(9)
+clock tower(3)
+tall building(3)
+skyscrapers(3)
+buidings(3): { buildings	buddings	bitings	bidding's	boding's }
+helloword(3): { hello world	hello word	hello-word	hallowed	hollowed	Hollywood }
+city scape(3)
+three tall buildings(3)
+blue sky(3)
+ancient(3)
+a big building(3)
+blue(3)
+skyscrapercity(3): { skyscraper city	skyscraper-city	skyscrapers	skyscraper's }
+multistoried building(3): { multi storied	multi-storied	multistories	multistory }
+signal lamp(3)
+tall(3)
+
+___________________________________________
+prprabhu/train_images/000007.jpg
+----------------------------------
+fight(15)
+people(12)
+dancing(9)
+white(6)
+road(6)
+dance(6)
+the crowd(3)
+street show(3)
+mens(3): { Menes	Mensa	means	men's	menus }
+male(3)
+this is a game show(3)
+entertainment(3)
+performers(3)
+black wrestler(3)
+gathering(3)
+monument(3)
+men(3)
+pepole(3): { people	pep ole	pep-ole	peopled	peoples }
+
+___________________________________________
+prprabhu/train_images/000008.jpg
+----------------------------------
+animal(36)
+raccoon(9)
+racoon(6): { raccoon	recon	reckon	raccoons	racking }
+wood(6)
+standing mangoose(3): { mongoose	man goose	man-goose	mangoes	mango's }
+panda(3)
+thi is a sweet bear (3): { thisis }
+raccoons(3)
+cute(3)
+eyes(3)
+wooden(3)
+capture(3)
+brown(3)
+racoons(3): { raccoons	racoon's	raccoon's	recons	reckons }
+rare species(3)
+
+___________________________________________
+prprabhu/train_images/000009.jpg
+----------------------------------
+restaurant(12)
+board(12)
+chicken(9)
+red(9)
+sign(6)
+hoarding(3)
+redincolour(3): { red colour	reticular	peduncle	reticule	ridicule	radical }
+it is advertisement(3)
+advertisement(3)
+far(3)
+local eateries(3)
+the chiken(3): { chicken	chi ken	chi-ken	shaken	chickens }
+chick(3)
+restaurantsign(3): { restaurant sign	restaurant-sign	restaurants	restaurant's	restraints }
+billboard(3)
+red colour board(3)
+road sign(3)
+highway resturant(3): { restaurant	restraint	restaurants	restraints	restaurant's }
+hen(3)
+
+___________________________________________
+prprabhu/train_images/000010.jpg
+----------------------------------
+aeroplane(27)
+airplane(21)
+southwest airlines(9)
+flight(6)
+plane(6)
+airport(3)
+colourfull(3): { colorful	colour full	colour-full	colourfully	colourful	colorfully }
+red(3)
+aricraft(3): { aircraft	Ashcroft	aggravate	aggrieved }
+southwest(3)
+airline(3)
+this an airpot(3): { airport	air pot	air-pot	airports	apt }
+
+___________________________________________
