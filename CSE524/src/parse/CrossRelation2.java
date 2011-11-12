@@ -24,16 +24,27 @@ import org.xeustechnologies.googleapi.spelling.SpellChecker;
 import org.xeustechnologies.googleapi.spelling.SpellCorrection;
 import org.xeustechnologies.googleapi.spelling.SpellResponse;
 
-import sun.awt.image.ImageWatched.Link;
 
-
+/**
+ * 
+ * @author prasad
+ *
+ */
 public class CrossRelation2 {
 
-	private LinkedHashMap<String, LinkedHashMap<String, Integer>> wordCountMap = new LinkedHashMap<String, LinkedHashMap<String,Integer>>();  // <image, wordcount>
+	// stores word count per image. Format: <imageName, <word, count>>
+	private LinkedHashMap<String, LinkedHashMap<String, Integer>> wordCountMap = new LinkedHashMap<String, LinkedHashMap<String,Integer>>(); 
+	
+	// stores word vs index. index implies the feature vector position index
 	private LinkedHashMap<String, Integer> wordIndexMap = new LinkedHashMap<String, Integer>();
-	//private ArrayList<ArrayList<Float>> vectors = new ArrayList<ArrayList<Float>>();
+	
+	//  contains all the word tags form the list. <word, count>
 	private LinkedHashMap<String, Integer> totalWord = new LinkedHashMap<String, Integer>();
+	
+	// Feature vector <imageName, [comparisonValue]>
 	private LinkedHashMap<String, ArrayList<Float>> vectors = new LinkedHashMap<String, ArrayList<Float>>();
+	
+	// Feature vector <image,  <image, comparisonValue>>
 	private LinkedHashMap<String, LinkedHashMap<String, Float>> compResultList = new LinkedHashMap<String, LinkedHashMap<String,Float>>();
 	
 	private static SpellChecker checker = new SpellChecker();
@@ -41,8 +52,16 @@ public class CrossRelation2 {
 	private Integer index=0;
 	private Integer MIN_IMAGE_TAGS=0;
 	private Integer TOTAL_NUMBER_IMAGES=4785;
+	
+	// change this to change the number of words to be considered for feature vector. It takes top VECTOR_SIZE form totalWords that is sorted according to count
 	private Integer VECTOR_SIZE=150;
 	
+	// this value implies =  outputs all those images which have comparison value greater than this. 
+	private Float THRESHOLD = (float)0.4;
+	
+	/**
+	 * Switches off all the loggers
+	 */
 	public CrossRelation2() {
 		// TODO Auto-generated constructor stub
 		List<Logger> loggers = Collections.<Logger>list(LogManager.getCurrentLoggers());
@@ -54,6 +73,12 @@ public class CrossRelation2 {
 		
 	}
 	
+	/**
+	 * Corrects the spelling of word
+	 * 
+	 * @param word
+	 * @return 1st meaning 
+	 */
 	public static String correctSpell(String word)
 	{
 		String result = null;
@@ -79,22 +104,26 @@ public class CrossRelation2 {
 		return result;
 	}
 	
+	
+	/**
+	 *  Gets a cross product of one image vector with rest of image vectors and stores the comparison value
+	 */
 	public void correlate()
 	{
-		Iterator vectItr1 = this.vectors.entrySet().iterator();
+		Iterator<Entry<String, ArrayList<Float>>> vectItr1 = this.vectors.entrySet().iterator();
 		while(vectItr1.hasNext())
 		{
-			Map.Entry<String, ArrayList<Float>> entry = (Map.Entry<String, ArrayList<Float>>) vectItr1.next();
+			Map.Entry<String, ArrayList<Float>> entry = vectItr1.next();
 			ArrayList<Float> arr1 = entry.getValue();
-			Iterator restItr = this.vectors.entrySet().iterator();
+			Iterator<Entry<String, ArrayList<Float>>> restItr = this.vectors.entrySet().iterator();
 			while(restItr.hasNext())
 			{
-				Map.Entry<String, ArrayList<Float>> entry2 = (Map.Entry<String, ArrayList<Float>>) restItr.next();
+				Map.Entry<String, ArrayList<Float>> entry2 = restItr.next();
 				if(entry.getKey().equals(entry2.getKey()) !=true)
 				{
 					ArrayList<Float> arr2 = entry2.getValue();
 					Float compval = this.compareArr(arr1, arr2);
-					if(compval > Float.valueOf((float)0.4))
+					if(compval > Float.valueOf((float)THRESHOLD))
 					{
 						LinkedHashMap<String, Float> tempMap;
 						if(this.compResultList.containsKey(entry.getKey()))
@@ -122,6 +151,10 @@ public class CrossRelation2 {
 		return res;
 	}
 	
+	/**
+	 * Generates HTML files of images that have comparison value greater than THRESHOLD
+	 * @throws IOException
+	 */
 	public void createHTMLFiles() throws IOException
 	{
 		BufferedReader br = null;
@@ -144,10 +177,10 @@ public class CrossRelation2 {
 					
 					String res = htmlHead+"\n<h2>Given Image</h2>"+this.formImageTag(image)+"\n"+"<br />\n";
 					
-					Iterator it = ParseMain.sortHashMap(this.wordCountMap.get(image)).entrySet().iterator();
+					Iterator<Entry<String, Integer>> it = ParseMain.sortHashMap(this.wordCountMap.get(image)).entrySet().iterator();
 					while(it.hasNext())
 					{
-						Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) it.next();
+						Map.Entry<String, Integer> entry = it.next();
 						res += entry.getKey()+"("+entry.getValue()+")&nbsp;&nbsp;";
 					}
 					
@@ -156,11 +189,11 @@ public class CrossRelation2 {
 					{
 						res+="(comparison value= "+this.compResultList.get(image).get(simage)+")<br />\n";
 						res+= this.formImageTag(simage)+"<br /><br />";
-						Iterator it1 = ParseMain.sortHashMap(this.wordCountMap.get(simage)).entrySet().iterator();
+						Iterator<Entry<String, Integer>> it1 = ParseMain.sortHashMap(this.wordCountMap.get(simage)).entrySet().iterator();
 						res += "<div>";
 						while(it1.hasNext())
 						{
-							Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) it1.next();
+							Map.Entry<String, Integer> entry = it1.next();
 							res += entry.getKey()+"("+entry.getValue()+")&nbsp;&nbsp;";
 						}
 						res += "</div><hr /"; 
@@ -189,10 +222,13 @@ public class CrossRelation2 {
 		
 	}
 	
+	/**
+	 * Generates a text file that has image and list of image url that are similar. 
+	 */
 	public void createHTMLOutput()
 	{
 		System.out.println("Creating HTML output");
-		Iterator resItr = this.compResultList.entrySet().iterator();
+		Iterator<Entry<String, LinkedHashMap<String, Float>>> resItr = this.compResultList.entrySet().iterator();
 		System.out.println("COMPRESSIZE: "+this.compResultList.size());
 		BufferedWriter bw = null;
 		int count=0;
@@ -200,15 +236,15 @@ public class CrossRelation2 {
 			bw = new BufferedWriter(new FileWriter(new File("comparisonresultforhtml.txt")));
 			while(resItr.hasNext())
 			{
-				Map.Entry<String, LinkedHashMap<String, Float>> entry = (Entry<String, LinkedHashMap<String, Float>>) resItr.next();
+				Map.Entry<String, LinkedHashMap<String, Float>> entry = resItr.next();
 				//System.out.println("Displaying Simarity:"+entry.getKey());
 				
 				bw.write(entry.getKey()+"\t");
 				LinkedHashMap<String, Float> tempMap = entry.getValue();
-				Iterator tmpItr = tempMap.entrySet().iterator();
+				Iterator<Entry<String, Float>> tmpItr = tempMap.entrySet().iterator();
 				while(tmpItr.hasNext())
 				{
-					Map.Entry<String, Float> valEntry = (Map.Entry<String, Float>) tmpItr.next();
+					Map.Entry<String, Float> valEntry = tmpItr.next();
 					//System.out.println(valEntry.getKey()+" : "+valEntry.getValue());
 					bw.write(valEntry.getKey()+";");
 				}
@@ -234,24 +270,24 @@ public class CrossRelation2 {
 	
 	private void displaySimilarity()
 	{
-		Iterator resItr = this.compResultList.entrySet().iterator();
+		Iterator<Entry<String, LinkedHashMap<String, Float>>> resItr = this.compResultList.entrySet().iterator();
 		System.out.println("COMPRESSIZE: "+this.compResultList.size());
 		BufferedWriter bw = null;
 		try {
 			bw = new BufferedWriter(new FileWriter(new File("comparisonresult.txt")));
 			while(resItr.hasNext())
 			{
-				Map.Entry<String, LinkedHashMap<String, Float>> entry = (Entry<String, LinkedHashMap<String, Float>>) resItr.next();
+				Map.Entry<String, LinkedHashMap<String, Float>> entry = resItr.next();
 				//System.out.println("Displaying Simarity:"+entry.getKey());
 				
 				bw.write("For: "+entry.getKey());
 				bw.newLine();
 				bw.write("----------------------------------------\n");
 				LinkedHashMap<String, Float> tempMap = entry.getValue();
-				Iterator tmpItr = tempMap.entrySet().iterator();
+				Iterator<Entry<String, Float>> tmpItr = tempMap.entrySet().iterator();
 				while(tmpItr.hasNext())
 				{
-					Map.Entry<String, Float> valEntry = (Map.Entry<String, Float>) tmpItr.next();
+					Map.Entry<String, Float> valEntry = tmpItr.next();
 					//System.out.println(valEntry.getKey()+" : "+valEntry.getValue());
 					bw.write(valEntry.getKey());
 					bw.newLine();
@@ -273,6 +309,12 @@ public class CrossRelation2 {
 	}
 	
 	
+	/**
+	 * Computes comparison of 2 image vectors
+	 * @param arr1 
+	 * @param arr2
+	 * @return
+	 */
 	private Float compareArr(ArrayList<Float> arr1, ArrayList<Float> arr2)
 	{
 		Float res=(float)0.0;
@@ -286,19 +328,23 @@ public class CrossRelation2 {
 
 	public void buildIndexMap()
 	{
-		Iterator it = this.totalWord.entrySet().iterator();
+		Iterator<Entry<String, Integer>> it = this.totalWord.entrySet().iterator();
 		for(int i=0; i<this.VECTOR_SIZE; i++)
 		{
-			Map.Entry<String, Integer> entry = (Map.Entry)it.next();
+			Map.Entry<String, Integer> entry = it.next();
 			this.wordIndexMap.put(entry.getKey(), this.index++);
 		}
 		
 	}
 	
+	/**
+	 * Generates normalized  feature vector for every image.
+	 * 
+	 */
 	public void buildVector()
 	{
 		//Iterator it = this.vectors.entrySet().iterator();
-		Iterator wcMapIt = this.wordCountMap.entrySet().iterator();
+		Iterator<Entry<String, LinkedHashMap<String, Integer>>> wcMapIt = this.wordCountMap.entrySet().iterator();
 		while(wcMapIt.hasNext())
 		{
 			Map.Entry<String, LinkedHashMap<String, Integer>> entry = (Map.Entry<String, LinkedHashMap<String,Integer>>) wcMapIt.next();
@@ -309,7 +355,7 @@ public class CrossRelation2 {
 			for(int i=0; i<this.VECTOR_SIZE; i++)
 				arr.add(Float.valueOf((float)0));
 			
-			Iterator it1 = hashmap.entrySet().iterator();
+			Iterator<Entry<String, Integer>> it1 = hashmap.entrySet().iterator();
 			int sum=0;
 			while(it1.hasNext())
 			{
@@ -333,6 +379,9 @@ public class CrossRelation2 {
 	
 	
 	
+	/**
+	 *  reads input file that contains image versus tags. It is expected that tags are spell corrected to get best results.
+	 */
 	public void processFile()
 	{
 		System.out.println("PROCESSING BEGIN");
@@ -412,7 +461,7 @@ public class CrossRelation2 {
 	
 	void displayVectors()
 	{
-		Iterator it = this.vectors.entrySet().iterator();
+		Iterator<Entry<String, ArrayList<Float>>> it = this.vectors.entrySet().iterator();
 		while(it.hasNext())
 		{
 			Map.Entry<String, ArrayList<Float>> entry = (Map.Entry<String, ArrayList<Float>>) it.next();
