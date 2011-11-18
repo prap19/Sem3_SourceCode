@@ -47,17 +47,21 @@ public class CrossRelation2 {
 	// Feature vector <image,  <image, comparisonValue>>
 	private LinkedHashMap<String, LinkedHashMap<String, Float>> compResultList = new LinkedHashMap<String, LinkedHashMap<String,Float>>();
 	
+	// <image <tags, count>>
+	private LinkedHashMap<String, LinkedHashMap<String, Integer>> commonTagMap = new LinkedHashMap<String, LinkedHashMap<String,Integer>>();
+	
 	private static SpellChecker checker = new SpellChecker();
 	private static SpellResponse response;
 	private Integer index=0;
 	private Integer MIN_IMAGE_TAGS=0;
 	private Integer TOTAL_NUMBER_IMAGES=4785;
+	private Integer TOTAL_NUMBER_OF_COMMON_TAGS =3;
 	
 	// change this to change the number of words to be considered for feature vector. It takes top VECTOR_SIZE form totalWords that is sorted according to count
 	private Integer VECTOR_SIZE=150;
 	
 	// this value implies =  outputs all those images which have comparison value greater than this. 
-	private Float THRESHOLD = (float)0.4;
+	private Float THRESHOLD = (float)0.3;
 	
 	/**
 	 * Switches off all the loggers
@@ -122,14 +126,13 @@ public class CrossRelation2 {
 				if(entry.getKey().equals(entry2.getKey()) !=true)
 				{
 					ArrayList<Float> arr2 = entry2.getValue();
-					Float compval = this.compareArr(arr1, arr2);
+					Float compval = this.compareArr(entry.getKey(), arr1, arr2);
 					if(compval > Float.valueOf((float)THRESHOLD))
 					{
 						LinkedHashMap<String, Float> tempMap;
 						if(this.compResultList.containsKey(entry.getKey()))
 						{
 							tempMap = this.compResultList.get(entry.getKey());
-									
 						}
 						else 
 						{
@@ -315,7 +318,7 @@ public class CrossRelation2 {
 	 * @param arr2
 	 * @return
 	 */
-	private Float compareArr(ArrayList<Float> arr1, ArrayList<Float> arr2)
+	private Float compareArr(String image,ArrayList<Float> arr1, ArrayList<Float> arr2)
 	{
 		Float res=(float)0.0;
 		for(int i=0; i< this.VECTOR_SIZE; i++)
@@ -378,6 +381,75 @@ public class CrossRelation2 {
 	}
 	
 	
+	public void findCommonTags()
+	{
+		Iterator wcItr = this.wordCountMap.entrySet().iterator();
+		
+		while(wcItr.hasNext()) {
+			Map.Entry<String, LinkedHashMap<String, Integer>> entry = (Entry)wcItr.next();		// key = given Image  Value= list of tags
+			LinkedHashMap<String, Integer> wordMap = entry.getValue();							// Tags of given image
+			LinkedHashMap<String, Integer> tempMap = new LinkedHashMap<String, Integer>();
+			Iterator wmapItr = wordMap.entrySet().iterator();
+			while(wmapItr.hasNext()) {
+				Map.Entry<String, LinkedHashMap<String, Integer>> entry1 = (Entry)wmapItr.next();
+				tempMap.put(entry1.getKey(), 0);
+			}
+			this.commonTagMap.put(entry.getKey(), tempMap);
+			
+			LinkedHashMap<String, Float> tempCompRes =  this.compResultList.get(entry.getKey());		// all simalar images of given image
+			Iterator tcResItr = tempCompRes.entrySet().iterator();
+			while(tcResItr.hasNext()) {
+				Map.Entry<String, Float> entry2 = (Map.Entry<String, Float>) tcResItr.next();
+				LinkedHashMap<String, Integer> tempSimTags = this.wordCountMap.get(entry2.getKey());	// tags of similar images of given image(entry)
+				Iterator tSimItr = tempSimTags.entrySet().iterator();
+				while(tSimItr.hasNext()) {
+					Map.Entry<String, LinkedHashMap<String, Integer>> entry3 = (Entry)tSimItr.next();
+					if(tempMap.containsKey(entry3.getKey())){
+						tempMap.put(entry3.getKey(), tempMap.get(entry3.getKey()) + 1);
+					}
+				}
+			}
+			tempMap = ParseMain.sortHashMap(tempMap);
+		}
+			
+	}
+	
+	public void writeCommonTags() {
+		BufferedWriter bw = null;
+		try {
+			bw = new BufferedWriter(new FileWriter(new File("commontags.txt")));
+			Iterator itr = this.commonTagMap.entrySet().iterator();
+			while(itr.hasNext()) {
+				Map.Entry<String, LinkedHashMap<String, Integer>> entry = (Map.Entry<String, LinkedHashMap<String,Integer>>) itr.next();
+				String line="";
+				LinkedHashMap<String, Float> simImages = this.compResultList.get(entry.getKey());
+				Iterator simItr = simImages.entrySet().iterator();
+				while(simItr.hasNext()) {
+					Map.Entry<String, LinkedHashMap<String, Integer>> entry2 = (Map.Entry<String, LinkedHashMap<String,Integer>>)simItr.next();
+					LinkedHashMap<String, Integer> tags = entry.getValue();
+					Iterator tagsItr = tags.entrySet().iterator();
+					while(tagsItr.hasNext()) {
+						Map.Entry<String, Integer> entry3 = (Map.Entry<String, Integer>) tagsItr.next();
+						line= entry.getKey()+":"+entry2.getKey()+"#"+entry3.getKey()+" ";
+					}
+					
+				}
+				bw.write(line.trim());
+				bw.newLine();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	 
 	
 	/**
 	 *  reads input file that contains image versus tags. It is expected that tags are spell corrected to get best results.
@@ -471,7 +543,7 @@ public class CrossRelation2 {
 			
 		}
 	}
-	
+		
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -487,6 +559,7 @@ public class CrossRelation2 {
 		//crossRelation2.displaySimilarity();
 		crossRelation2.createHTMLOutput();
 		crossRelation2.createHTMLFiles();
+		crossRelation2.findCommonTags();
 	}
 
 }
