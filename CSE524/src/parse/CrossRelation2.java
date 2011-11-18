@@ -383,20 +383,21 @@ public class CrossRelation2 {
 	
 	public void findCommonTags()
 	{
-		Iterator wcItr = this.wordCountMap.entrySet().iterator();
-		
+		System.out.println("Finding common tags");
+		int count=0;
+		Iterator wcItr = this.compResultList.entrySet().iterator();
 		while(wcItr.hasNext()) {
-			Map.Entry<String, LinkedHashMap<String, Integer>> entry = (Entry)wcItr.next();		// key = given Image  Value= list of tags
-			LinkedHashMap<String, Integer> wordMap = entry.getValue();							// Tags of given image
+			Map.Entry<String, LinkedHashMap<String, Float>> entry = (Entry)wcItr.next();				// key = given Image  Value= list of tags
+			LinkedHashMap<String, Integer> wordMap = this.wordCountMap.get(entry.getKey());						// Tags of given image
 			LinkedHashMap<String, Integer> tempMap = new LinkedHashMap<String, Integer>();
 			Iterator wmapItr = wordMap.entrySet().iterator();
 			while(wmapItr.hasNext()) {
 				Map.Entry<String, LinkedHashMap<String, Integer>> entry1 = (Entry)wmapItr.next();
 				tempMap.put(entry1.getKey(), 0);
 			}
-			this.commonTagMap.put(entry.getKey(), tempMap);
 			
-			LinkedHashMap<String, Float> tempCompRes =  this.compResultList.get(entry.getKey());		// all simalar images of given image
+			LinkedHashMap<String, Float> tempCompRes =  entry.getValue();		// all similar images of given image
+			
 			Iterator tcResItr = tempCompRes.entrySet().iterator();
 			while(tcResItr.hasNext()) {
 				Map.Entry<String, Float> entry2 = (Map.Entry<String, Float>) tcResItr.next();
@@ -410,32 +411,45 @@ public class CrossRelation2 {
 				}
 			}
 			tempMap = ParseMain.sortHashMap(tempMap);
+			
+			this.commonTagMap.put(entry.getKey(), tempMap);
+	
 		}
 			
 	}
 	
 	public void writeCommonTags() {
 		BufferedWriter bw = null;
+		System.out.println("Writing common tags");
 		try {
 			bw = new BufferedWriter(new FileWriter(new File("commontags.txt")));
 			Iterator itr = this.commonTagMap.entrySet().iterator();
 			while(itr.hasNext()) {
 				Map.Entry<String, LinkedHashMap<String, Integer>> entry = (Map.Entry<String, LinkedHashMap<String,Integer>>) itr.next();
-				String line="";
+				
 				LinkedHashMap<String, Float> simImages = this.compResultList.get(entry.getKey());
 				Iterator simItr = simImages.entrySet().iterator();
 				while(simItr.hasNext()) {
+					String line="";
 					Map.Entry<String, LinkedHashMap<String, Integer>> entry2 = (Map.Entry<String, LinkedHashMap<String,Integer>>)simItr.next();
 					LinkedHashMap<String, Integer> tags = entry.getValue();
+					tags = ParseMain.sortHashMap(tags);
 					Iterator tagsItr = tags.entrySet().iterator();
 					while(tagsItr.hasNext()) {
 						Map.Entry<String, Integer> entry3 = (Map.Entry<String, Integer>) tagsItr.next();
-						line= entry.getKey()+":"+entry2.getKey()+"#"+entry3.getKey()+" ";
+						if(entry3.getValue() == simImages.size())
+							line+= " "+entry.getKey()+":"+entry2.getKey()+"#"+entry3.getKey()+" ";
+						//	line+= entry.getKey()+":"+entry2.getKey()+"#"+entry3.getKey()+"("+entry3.getValue()+") ";
 					}
-					
+					//line+="\n";
+					System.out.println(line);
+					if(line.length()>0)
+					{
+						bw.write(line.trim());
+						bw.newLine();
+					}
 				}
-				bw.write(line.trim());
-				bw.newLine();
+				
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -466,9 +480,10 @@ public class CrossRelation2 {
 			while(lineno<this.TOTAL_NUMBER_IMAGES)
 			{
 				line = br.readLine().toLowerCase();
-				String[] tokens = line.split("\\t");   // 3= image_name 4= tags
+				String[] tokens = line.split("\\t");   // 0= image_name 1 = tags
 				System.out.println("#"+lineno+": "+tokens[0]+" "+tokens[1]);
 				String[] tags = tokens[1].split(";");
+				
 				//System.out.println(Arrays.deepToString(tags));
 				
 				this.vectors.put(tokens[0], new ArrayList<Float>());
@@ -492,6 +507,7 @@ public class CrossRelation2 {
 						tags[i] = corrected; 
 					}
 					*/
+					tags[i]= tags[i].trim().replaceAll("\\s+", "-");		// replacing spaces within the tags
 					if(tempMap.containsKey(tags[i])){
 						tempMap.put(tags[i], tempMap.get(tags[i])+1);
 					}
@@ -560,6 +576,7 @@ public class CrossRelation2 {
 		crossRelation2.createHTMLOutput();
 		crossRelation2.createHTMLFiles();
 		crossRelation2.findCommonTags();
+		crossRelation2.writeCommonTags();
 	}
 
 }
