@@ -438,7 +438,7 @@ public class CrossRelation2 {
 					while(tagsItr.hasNext()) {
 						Map.Entry<String, Integer> entry3 = (Map.Entry<String, Integer>) tagsItr.next();
 						if(entry3.getValue() == simImages.size())
-							line+= " "+entry.getKey()+":"+entry2.getKey()+"#"+entry3.getKey()+" ";
+							line+= entry.getKey()+":"+entry2.getKey()+"#"+entry3.getKey()+" ";
 						//	line+= entry.getKey()+":"+entry2.getKey()+"#"+entry3.getKey()+"("+entry3.getValue()+") ";
 					}
 					//line+="\n";
