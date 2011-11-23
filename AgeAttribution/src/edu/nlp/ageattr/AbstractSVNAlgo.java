@@ -13,7 +13,10 @@
 package edu.nlp.ageattr;
 
 import java.util.ArrayList;
+
+import weka.core.Attribute;
 import weka.core.FastVector;
+import weka.core.Instance;
 import weka.core.Instances;
 
 /**
@@ -21,41 +24,65 @@ import weka.core.Instances;
  *
  */
 public abstract class AbstractSVNAlgo {
-	//TODO: Create dataInstances object in trainer method
-	
+	//TODO: Create instances object in trainer method
 	
 	// Weka Objects
-	 private FastVector      atts;
-	 private Instances       dataInstances;
+	 private FastVector      fastvector;
+	 private FastVector		 fastvectorClass;
+	 private Instances       instances;
+	 private Instance		 instance;
+	 private Attribute		 classAttribute;
+	 
+	 /**
+	 *  Sub-class should add SVN interfaces objects in this arraylist. 
+	 */
+	protected ArrayList<SVNInterface> arraylist = new ArrayList<SVNInterface>();
 	
-	 ArrayList<SVNInterface> arraylist = new ArrayList<SVNInterface>();
-	
+	private void init() {
+		this.addSVNInterfaces();
+		this.setFastVectorCapacity();
+		this.addAttributes();
+		this.instances = new Instances("myInstances", this.fastvector, 10);
+		this.instances.setClassIndex(fastvector.capacity()-1);
+		
+	}
 	
 	 private void setFastVectorCapacity() {
 		 int num=0;
 		 for(SVNInterface svnInterface: this.arraylist) {
 			 	num+= svnInterface.getNumberOfAttributes();
 			}
-		 this.atts = new FastVector(num);
+		 this.fastvector = new FastVector(num+1);   // 1 extra for Class attribute
 	 }
 	 
 	/**
 	 * Extend this method to add combination of SVNInterfaces in arraylist
 	 */
-	abstract void addSVNInterfaces();
+	abstract protected void addSVNInterfaces();
 	
 	private void addAttributes() {
 
 		for(SVNInterface svnInterface: this.arraylist) {
-			svnInterface.addAttributes(this.atts);						
-		//	svnInterface.addVector();
+			svnInterface.addAttributes(this.fastvector);						
 		}
+		
+		this.fastvectorClass = new FastVector(3);
+		this.fastvectorClass.addElement("20s");
+		this.fastvectorClass.addElement("30s");
+		this.fastvectorClass.addElement("40s");
+		this.classAttribute = new Attribute("theClass", this.fastvectorClass);
+		this.fastvector.addElement(this.classAttribute)	;
+	}
+	
+	protected void displayAttributes() {
+		for(int i=0; i<this.fastvector.size(); i++)
+			System.out.println(fastvector.elementAt(i).toString());
 	}
 	
 	private void populateVector() {
 
 		for(SVNInterface svnInterface: this.arraylist) {
-			svnInterface.addVector(this.atts);						
+			svnInterface.addVector(this.fastvector, this.instances);
 		}
 	}
 	
@@ -68,9 +95,7 @@ public abstract class AbstractSVNAlgo {
 	}
 	
 	public final void run() {
-		this.addSVNInterfaces();
-		this.addAttributes();
-		this.setFastVectorCapacity();
+		this.init();
 		this.populateVector();
 		trainClassifier();
 		testClassifier();

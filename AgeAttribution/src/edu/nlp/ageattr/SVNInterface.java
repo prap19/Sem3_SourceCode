@@ -1,6 +1,7 @@
 package edu.nlp.ageattr;
 
 import weka.core.FastVector;
+import weka.core.Instances;
 
 /**
  * SVNInterface implementations are actually feature vector implementations
@@ -28,5 +29,5 @@ public interface SVNInterface {
 	/**
 	 * This method will evaluate the values in the feature vector
 	 */
-	public void addVector(FastVector fastVector);
+	public void addVector(FastVector fastVector, Instances instances);
 }
