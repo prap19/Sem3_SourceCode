@@ -10,6 +10,7 @@ public class SVNInterfaceExample implements SVNInterface {
 
 	Attribute attribute = new Attribute("attr1");
 	Attribute attribute2 = new Attribute("attr2");
+	private String trainingSet = SVNInterface.POSTAGGEDFILE;
 	
 	@Override
 	public int getNumberOfAttributes() {

@@ -14,6 +14,7 @@ package edu.nlp.ageattr;
 
 import java.util.ArrayList;
 
+import weka.classifiers.functions.LibSVM;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -29,9 +30,11 @@ public abstract class AbstractSVNAlgo {
 	// Weka Objects
 	 private FastVector      fastvector;
 	 private FastVector		 fastvectorClass;
-	 private Instances       instances;
+	 private Instances       trainInstances;
+	 private Instances       testInstances;
 	 private Instance		 instance;
 	 private Attribute		 classAttribute;
+	 private LibSVM			 libsvm;
 	 
 	 /**
 	 *  Sub-class should add SVN interfaces objects in this arraylist. 
@@ -42,9 +45,11 @@ public abstract class AbstractSVNAlgo {
 		this.addSVNInterfaces();
 		this.setFastVectorCapacity();
 		this.addAttributes();
-		this.instances = new Instances("myInstances", this.fastvector, 10);
-		this.instances.setClassIndex(fastvector.capacity()-1);
-		
+		this.trainInstances = new Instances("trainInstances", this.fastvector, 10);
+		this.testInstances = new Instances("testInstances", this.fastvector, 10);
+		this.trainInstances.setClassIndex(fastvector.capacity()-1);
+		this.testInstances.setClassIndex(fastvector.capacity()-1);
+		this.libsvm = new LibSVM();
 	}
 	
 	 private void setFastVectorCapacity() {
@@ -82,16 +87,38 @@ public abstract class AbstractSVNAlgo {
 	private void populateVector() {
 
 		for(SVNInterface svnInterface: this.arraylist) {
-			svnInterface.addVector(this.fastvector, this.instances);
+			svnInterface.addVector(this.fastvector, this.trainInstances);
+			svnInterface.addVector(this.fastvector, this.testInstances);
 		}
 	}
 	
 	public void trainClassifier() {
-		System.out.println("Train Classifier");
+		System.err.println("Train Classifier");
+		try {
+			libsvm.buildClassifier(this.trainInstances);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void testClassifier() {
-		System.out.println("test Classifier");
+		System.err.println("test Classifier");
+		for(int i=0; i<this.testInstances.numInstances(); i++) {
+			Double prediction = 0.0;
+			try {
+				prediction = libsvm.classifyInstance(this.testInstances.instance(i));
+				
+				System.out.print("ID: " + testInstances.instance(i).value(0));
+                System.out.print(", actual: " + testInstances.classAttribute().value((int) testInstances.instance(i).classValue()));
+                System.out.println(", predicted: " + testInstances.classAttribute().value(prediction.intValue()));
+                
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public final void run() {

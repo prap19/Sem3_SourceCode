@@ -1,5 +1,7 @@
 package edu.nlp.ageattr;
 
+import java.io.File;
+
 import weka.core.FastVector;
 import weka.core.Instances;
 
@@ -11,7 +13,17 @@ import weka.core.Instances;
  *
  */
 public interface SVNInterface {
-	//TODO: Add weka objects into parameters
+	//TODO: Change the location of testing data.
+	
+	
+	//Training Dataset
+	public static final String RSRC_TRAIN_POSDATA ="rsrc"+File.separator+"POSDataset";
+	public static final String RSRC_TRAIN_TXT ="rsrc"+File.separator+"TextFiles";
+	
+	
+	//TestingDataset
+	public static final String RSRC_TEST_POSDATA ="rsrc"+File.separator+"POSDataset";
+	public static final String RSRC_TEST_TXT ="rsrc"+File.separator+"TextFiles";
 	
 	/**
 	 * This method will return number of attributes that the implemented class will add in FastVector.

@@ -48,7 +48,7 @@ package edu.nlp.test;
 	     atts.addElement(new Attribute("att5", dataRel, 0));
 	 
 	     // 2. create Instances object
-	     data = new Instances("MyRelation", at`ts, 0);
+	     data = new Instances("MyRelation", atts, 0);
 	 
 	     // 3. fill with data
 	     // first instance
