@@ -12,9 +12,12 @@
  */
 package edu.nlp.ageattr;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import weka.classifiers.functions.LibSVM;
+import weka.classifiers.functions.SMO;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -28,13 +31,22 @@ public abstract class AbstractSVNAlgo {
 	//TODO: Create instances object in trainer method
 	
 	// Weka Objects
-	 private FastVector      fastvector;
-	 private FastVector		 fastvectorClass;
-	 private Instances       trainInstances;
-	 private Instances       testInstances;
-	 private Instance		 instance;
-	 private Attribute		 classAttribute;
-	 private LibSVM			 libsvm;
+	 private FastVector      	fastvector;
+	 private FastVector		 	fastvectorClass;
+	 private Instances       	trainInstances;
+	 private Instances       	testInstances;
+	 private Instance		 	trainInstance;
+	 private Instance		 	testInstance;
+	 private Attribute		 	classAttribute;
+	 private SMO			 	smo;
+	 private int				FileIndex;
+	 private int 				noOfTrainingInstances;
+	 private int 				noOfTestingInstances;
+	// public static final String RSRC_TRAIN_POSDATA ="rsrc"+File.separator+"TrainPOSDataset";
+	 public static final String RSRC_TRAIN_TXT ="rsrc"+File.separator+"TrainTextFiles";
+	// public static final String RSRC_TEST_POSDATA ="rsrc"+File.separator+"TestPOSDataset";
+	 public static final String RSRC_TEST_TXT ="rsrc"+File.separator+"TestTextFiles";
+	 	
 	 
 	 /**
 	 *  Sub-class should add SVN interfaces objects in this arraylist. 
@@ -49,7 +61,19 @@ public abstract class AbstractSVNAlgo {
 		this.testInstances = new Instances("testInstances", this.fastvector, 10);
 		this.trainInstances.setClassIndex(fastvector.capacity()-1);
 		this.testInstances.setClassIndex(fastvector.capacity()-1);
-		this.libsvm = new LibSVM();
+		this.smo = new SMO();
+		//this.FileMap = new HashMap<String, File>();
+		//this.smo.setKernel(Kernel.)
+		/**
+		 * setting up the parameters for the SMO Classifier
+		 */
+		try {
+			smo.setOptions(weka.core.Utils.splitOptions("-G 0.01 -R "));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.setNoOfTrainingInstances(RSRC_TRAIN_TXT);
+		this.setNoOfTestingInstances(RSRC_TEST_TXT);
 	}
 	
 	 private void setFastVectorCapacity() {
@@ -83,19 +107,54 @@ public abstract class AbstractSVNAlgo {
 		for(int i=0; i<this.fastvector.size(); i++)
 			System.out.println(fastvector.elementAt(i).toString());
 	}
-	
+	/**
+	 * @param no 3 if true is for populating the training instance and if false it is for testing instance
+	 */
 	private void populateVector() {
-
-		for(SVNInterface svnInterface: this.arraylist) {
-			svnInterface.addVector(this.fastvector, this.trainInstances);
-			svnInterface.addVector(this.fastvector, this.testInstances);
+		for(int i=0; i<this.getNoOfTrainingInstances(); i++){
+			//FileMap = getAllFeatureFilesForIthInstance(i,RSRC_TRAIN_TXT,RSRC_TRAIN_POSDATA);
+			FileIndex = i;
+			for(SVNInterface svnInterface: this.arraylist) {
+				trainInstance = new Instance(this.fastvector.capacity());
+				svnInterface.addVector(this.fastvector, trainInstance,true, FileIndex);
+			}
+			this.trainInstances.add(trainInstance);
 		}
+		
+		for(int i=0; i<this.getNoOfTestingInstances(); i++){
+			for(SVNInterface svnInterface: this.arraylist) {
+				//FileMap = getAllFeatureFilesForIthInstance(i,RSRC_TEST_TXT,RSRC_TEST_POSDATA);
+				FileIndex = i;
+				testInstance = new Instance(this.fastvector.capacity());
+				svnInterface.addVector(this.fastvector, testInstance,false, FileIndex);
+				this.testInstances.add(testInstance);
+			}
+		}	
+	}
+	
+
+	public void setNoOfTrainingInstances(String FolderName){
+		final File folder = new File(FolderName);
+		this.noOfTrainingInstances = folder.listFiles().length;
+	}
+	
+	public int getNoOfTrainingInstances(){
+		return this.noOfTrainingInstances;
+	}
+	
+	public void setNoOfTestingInstances(String FolderName){
+		final File folder = new File(FolderName);
+		this.noOfTestingInstances = folder.listFiles().length;
+	}
+	
+	public int getNoOfTestingInstances(){
+		return this.noOfTestingInstances;
 	}
 	
 	public void trainClassifier() {
 		System.err.println("Train Classifier");
 		try {
-			libsvm.buildClassifier(this.trainInstances);
+			smo.buildClassifier(this.trainInstances);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -108,8 +167,7 @@ public abstract class AbstractSVNAlgo {
 		for(int i=0; i<this.testInstances.numInstances(); i++) {
 			Double prediction = 0.0;
 			try {
-				prediction = libsvm.classifyInstance(this.testInstances.instance(i));
-				
+				prediction = smo.classifyInstance(this.testInstances.instance(i));
 				System.out.print("ID: " + testInstances.instance(i).value(0));
                 System.out.print(", actual: " + testInstances.classAttribute().value((int) testInstances.instance(i).classValue()));
                 System.out.println(", predicted: " + testInstances.classAttribute().value(prediction.intValue()));

@@ -48,26 +48,36 @@ public class PosTaggging {
 		{
     		bufferedReader = new BufferedReader(new FileReader(InputFile));
     		bufferedWriter = new BufferedWriter(new FileWriter(OutputFile));
+    		int countOfWords = 0;
     		while((line=bufferedReader.readLine())!=null)
     		{
     			//System.out.println("line before tagging "+line);
     			List<ArrayList<? extends HasWord>> sentences = MaxentTagger.tokenizeText(new StringReader(line));
     			
     			for (ArrayList<? extends HasWord> sentence : sentences) {
-    			    taggedSentence ="";    
+    			    taggedSentence ="";
+    			    countOfWords = 0;
     				ArrayList<TaggedWord> tSentence = tagger.tagSentence(sentence);
-    				taggedSentence += tSentence.size()+" ";   
-    				for (TaggedWord tWord : tSentence) {
-    		               if (tWord.tag().length() > 0) {
-    		            	   taggedSentence += tWord.word()+" "+tWord.tag()+" ";
-    		               }
-    			       }
-    				if(taggedSentence!=null){
-        				count ++;
-        				//System.out.println("the tagged sentence is "+count);
-        				bufferedWriter.write(taggedSentence);
-        				bufferedWriter.newLine();
-        			}
+    				if(tSentence.size()<119){
+    					
+    					//taggedSentence += tSentence.size()+" ";
+        				for (TaggedWord tWord : tSentence) {
+        		               if (tWord.tag().length() > 0) {
+        		            	   countOfWords+=1;
+        		            	   taggedSentence += tWord.word()+" "+tWord.tag()+" ";
+        		               }else{
+        		            	   System.out.println("hag diya");
+        		               }
+        			       }
+        				if(taggedSentence!=null){
+            				taggedSentence = countOfWords + " " +taggedSentence;
+        					count ++;
+            				//System.out.println("the tagged sentence is "+count);
+            				bufferedWriter.write(taggedSentence);
+            				bufferedWriter.newLine();
+            			}
+    				}
+    			
     			   }
     		//taggedSentence = "";
     		//System.out.println("tagged sentence count is "+count);

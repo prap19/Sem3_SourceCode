@@ -28,7 +28,7 @@ public class SentenceComplexityHelperScripts {
         String fileName = CreateDataset.proceesFileName(fileEntry); 
         String outputFileName = OutputFolderPath+=fileName;
         String inputFileName ="";
-        String command ="gunzip -c models/model2/events.gz | code/parser "+"C:/"+" models/model2/grammar 10000 1 1 1 1 > <output_file>"; 		
+        String command ="gunzip -c models/model2/events.gz | code/parser "+"C:/"+" models/model2/grammar 10000 1 1 1 1 > "+outputFileName; 		
 	
 	try {
 			bufferedWriter = new BufferedWriter(new FileWriter(CollinsParserBatFile));

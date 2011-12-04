@@ -80,7 +80,7 @@ public static String proceesFileName(File fileEntry) {
 	String[] fnames;
 	fnames = a.split("\\\\");
 	//System.out.println("hey");
-		return fnames[2];
+		return fnames[4];
 	}
 /**
  * parses one xml file and creates on personBlog object
@@ -349,11 +349,86 @@ public static String proceesFileName(File fileEntry) {
     	String InputFileName = fileEntry.getAbsolutePath();
 	 	try {
 			posTaggging.TagFile(InputFileName, OutputfileName);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	    System.out.println("the file count is "+count);
 	    }
 	}
+	public void createConcatenatedFiles(File datatextfolder,
+			File singleteensfile, File singlethiriesfile,
+			File singletwentiesfile) {
+		File files[];
+		BufferedWriter teensOut = null,twentiesOut =null,thirteesOut=null;
+		try {
+			teensOut = new BufferedWriter(new FileWriter(singleteensfile));
+			 twentiesOut = new BufferedWriter(new FileWriter(singletwentiesfile));
+			 thirteesOut = new BufferedWriter(new FileWriter(singlethiriesfile));
+			
+			files = datatextfolder.listFiles();
+			int count =0;
+		    for (final File fileEntry : files) {
+			 	count++;
+			 	System.out.println("the count is "+count);
+			 	String OutputfileName = CreateDataset.proceesFileName(fileEntry);
+		    	if(getAuthorAge(OutputfileName).equalsIgnoreCase("teens")){
+		    		writeToFile(teensOut, fileEntry);
+		    	}else if(getAuthorAge(OutputfileName).equalsIgnoreCase("twenties")){
+		    		writeToFile(twentiesOut, fileEntry);
+		    	}else{
+		    		writeToFile(thirteesOut, fileEntry);
+		    	}
+		    }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				teensOut.close();
+				twentiesOut.close();
+				thirteesOut.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+	private void writeToFile(BufferedWriter out, File fileEntry) throws IOException {
+		BufferedReader bufferedReader = null;
+		try {
+		bufferedReader = new BufferedReader(new FileReader(fileEntry));
+		String line="";
+		while((line = bufferedReader.readLine())!=null){
+			out.write(line);
+			out.newLine();
+		}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}finally{
+			bufferedReader.close();
+		}
+		
+		
+	}
+	private String getAuthorAge(String outputfileName) {
+		String[] fname = outputfileName.split("\\.");
+		
+		if(Integer.parseInt(fname[2])>=13 && Integer.parseInt(fname[2])<=17){
+			return "teens";
+		}
+		else if(Integer.parseInt(fname[2])>=23 && Integer.parseInt(fname[2])<=27){
+			return "twenties";
+		}
+		else{
+			return "thirtees";
+		}
+	}
+	
+	
+	
 	
 }

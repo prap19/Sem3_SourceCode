@@ -1,8 +1,10 @@
 package edu.nlp.ageattr;
 
 import java.io.File;
+import java.util.HashMap;
 
 import weka.core.FastVector;
+import weka.core.Instance;
 import weka.core.Instances;
 
 /**
@@ -40,6 +42,16 @@ public interface SVNInterface {
 	
 	/**
 	 * This method will evaluate the values in the feature vector
+	 * @param train 
+	 * @param fileIndex 
 	 */
-	public void addVector(FastVector fastVector, Instances instances);
+	public void addVector(FastVector fastVector, Instance trainInstance, boolean train, int fileIndex);
+	
+	/**
+	 * This method will get required file for populating the feature vector from a specified data folder at a specified Index 
+	 * @param FolderName
+	 * @param fileIndex
+	 * @return
+	 */
+	public File getDataFile(String FolderName,int fileIndex);
 }
