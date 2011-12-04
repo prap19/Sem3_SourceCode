@@ -24,13 +24,13 @@ public class TopWords {
 	public int teenCount = 0;
 	public int twentiesCount = 0;
 	public int thirtiesCount = 0;
-	static final File TeensFileWordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//OrderedLowerTeensFileTrainOut.txt");
-	static final File TwentiesFileWordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//OrderedLowerTwentiesFileTrainOut.txt");
-	static final File ThiriesFileWordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//OrderedLowerThirteesFileTrainOut.txt");
+	static final File TeensFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerTeensFileTrainOut.txt");
+	static final File TwentiesFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerTwentiesFileTrainOut.txt");
+	static final File ThiriesFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerThirteesFileTrainOut.txt");
 	
-	static final File TeensFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedTeensFileTrainOut.txt");
-	static final File TwentiesFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedTwentiesFileTrainOut.txt");
-	static final File ThiriesFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedThirteesFileTrainOut.txt");
+	static final File TeensFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedTeensFileTrainOut.txt");
+	static final File TwentiesFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedTwentiesFileTrainOut.txt");
+	static final File ThiriesFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedThirteesFileTrainOut.txt");
 
 	public TopWords(){
 		stopWord = new StopWord();
