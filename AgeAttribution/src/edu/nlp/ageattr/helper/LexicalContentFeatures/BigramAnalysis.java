@@ -3,12 +3,10 @@ package edu.nlp.ageattr.helper.LexicalContentFeatures;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -18,77 +16,17 @@ import java.util.Map.Entry;
 
 import edu.nlp.ageattr.util.MapUtil;
 
-public class BigramAnalysis {
+public class BigramAnalysis extends AbstractBigramAnalysis{
 
-	 private String dataset = System.getenv("NLP")+"\\1500TrainTextFiles"; 
-	 
-	 private HashMap<String, HashMap<String, Double>> ageMap = new HashMap<String, HashMap<String,Double>>(10, (float)0.3);
-	 private HashMap<String, Double> mapTeens = new LinkedHashMap<String, Double>(10, (float)0.3);
-	 private HashMap<String, Double> map20s = new LinkedHashMap<String, Double>(10, (float)0.3);
-	 private HashMap<String, Double> map30s = new LinkedHashMap<String, Double>(10, (float)0.3);
-	 
-	 private Double wordTeen = 0.0;
-	 private Double word20s = 0.0;
-	 private Double word30s = 0.0;
-	 
+	 	 
 	 public BigramAnalysis() {
 		// TODO Auto-generated constructor stub
-		 ageMap.put("teens", mapTeens);
-		 ageMap.put("twenties", map20s);
-		 ageMap.put("thirties", map30s);
+		 super();
+		 this.output= "output\\bigram\\";
 	 }
 	 
-	 public static String getAuthorAge(String filename) {
-		 Integer age = Integer.parseInt(filename.split("\\.")[2]);
-		 String res = "teens";
-		 if(age>=23 && age<=27)
-			 res = "twenties";
-		 if(age>27)
-			 res= "thirties";
-		 
-		 return res;
-		 
-	 }
-	 
-	 public void process() {
-		 BufferedReader br = null;
-		 File dir =  new File(dataset);
-		 String line="";
-		 if(dir.isDirectory()) {
-			 File[] files = dir.listFiles();
-			 for(int i=0; i<files.length; i++) {
-				 try {
-					br = new BufferedReader(new FileReader(files[i]));
-					String ageclass = BigramAnalysis.getAuthorAge(files[i].getName());
-					System.out.println(i+"# "+files[i].getName());
-					while((line = br.readLine()) != null) {
-						updateMap(ageclass, line);
-					}
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally {
-					try {
-						br.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				 
-			 }
-		 } else
-			try {
-				throw new Exception("Dataset path is not a directory: path: "+dataset);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 
-	 }	 
-	 
-	 private void updateMap(String ageclass, String line) {
+	 	 
+	 protected void updateMap(String ageclass, String line) {
 		// TODO Auto-generated method stub
 		HashMap<String, Double> hashmap = this.ageMap.get(ageclass);
 		String[] words = line.toLowerCase().replaceAll("[:.,*!?\"\\;'{}()`~@#$%^&|-]", " ").split("\\s+");
@@ -103,151 +41,11 @@ public class BigramAnalysis {
 		}
 	}
 	 
-	 
-	 public void writeintoFile(){
-		 
-		 Iterator mitr = this.ageMap.entrySet().iterator();
-		 BufferedWriter bw = null;
-		 while(mitr.hasNext()){
-			 try {
-				 Map.Entry<String, HashMap<String, Double>> entry = (Entry<String, HashMap<String,Double>>)mitr.next();
-				 bw= new BufferedWriter(new FileWriter(new File("output\\"+entry.getKey()+".txt")));
-				 Iterator eitr = entry.getValue().entrySet().iterator();
-				 while(eitr.hasNext()) {
-					 Map.Entry<String, Double> entry1 =(Entry<String, Double>)eitr.next();
-					 if(this.getCountObj(entry.getKey()).equals(new Double(0.0)))
-						 throw new Exception("Count zero for : "+entry.getKey());
-					 bw.write(entry1.getKey()+" "+entry1.getValue()/this.getCountObj(entry.getKey()));
-					 bw.newLine();
-				 }
-				 bw.close();
-				 
-				 //Reducing heap pressure by removing hashmap objects
-				 mitr.remove();
-				 
-			 }catch(Exception e) {
-				 e.printStackTrace();
-			 }
-		 }
-			 
-	 }
-	 
-	 public void displayMap(Map<String, Double> map) {
-		 map = this.map20s;
-		Iterator it = map.entrySet().iterator();
-		while(it.hasNext()) {
-			Map.Entry<String, Double> entry = (Entry<String, Double>) it.next();
-			System.out.println(entry.getKey()+": "+entry.getValue());
-		}
-	 }
-	 
-	public static String[] getAllBigrams(String[] words) {
-		// TODO Auto-generated method stub
-		
-		List<String> res = new ArrayList<String>();
-		for(int i=0,j=i+1; j<words.length;i++,j++) {
-			res.add(words[i]+words[j]);
-		}
-		
-		return (String[]) res.toArray(new String[0]);
-	}
-
-	public void sortMaps() {
-		// TODO Auto-generated method stub
-		System.err.println("Sorting started");
-		this.removeSmallCounts();
-		//System.out.println("teens: "+mapTeens.size()+" 20s:"+map20s.size()+" 30s:"+map30s.size());
-		Iterator it = this.ageMap.entrySet().iterator();
-		while(it.hasNext()) {
-			Map.Entry<String, LinkedHashMap<String, Double>> entry = (Entry<String, LinkedHashMap<String,Double>>) it.next();
-			ageMap.put(entry.getKey(), MapUtil.sortHashMap(entry.getValue()));
-			System.gc();
-			System.out.println(entry.getKey()+" Map sorted!");
-		}
-		
-		System.err.println("Sorting done");
-	}
 	
-	/**
-	 * Removes entries less than 75
-	 * 
-	 */
-	private void removeSmallCounts() {
-		// TODO Auto-generated method stub
-		Iterator it = this.ageMap.entrySet().iterator();
-		while(it.hasNext()) {
-			Map.Entry<String, LinkedHashMap<String, Double>> entry = (Entry<String, LinkedHashMap<String,Double>>) it.next();
-			Double count = this.getCountObj(entry.getKey());
-			Iterator itr = entry.getValue().entrySet().iterator();
-			while(itr.hasNext()) {
-				Map.Entry<String, Double> entry1 = (Entry<String, Double>)itr.next();
-				if(entry1.getValue() < 75)
-					itr.remove();
-				else
-					count+=entry1.getValue();
-				
-			}
-			System.gc();
-			this.setObjCount(entry.getKey(), count);
-			System.out.println(entry.getKey()+" Map removed! count="+count);
-		}
-	}
-
-	private void setObjCount(String key, Double count) {
-		// TODO Auto-generated method stub
-		if(key.equals("twenties"))
-		{
-			this.word20s= count;
-			return;
-		}
-		if(key.equals("thirties"))
-		{
-			this.word30s=count;
-			return;
-		}
-		
-		this.wordTeen=count;
-		
-	}
-
-	private Double getCountObj(String key) {
-		// TODO Auto-generated method stub
-		
-		Double res = this.wordTeen;
-		if(key.equals("twenties"))
-			return this.word20s;
-		if(key.equals("thirties"))
-			return this.word30s;
-		return this.wordTeen;
-	}
-
-	public void normalizeMaps() {
-		
-		Iterator it = this.ageMap.entrySet().iterator();
-		while(it.hasNext()) {
-			Map.Entry<String, LinkedHashMap<String, Double>> entry = (Entry<String, LinkedHashMap<String,Double>>) it.next();
-			
-			Iterator itr = entry.getValue().entrySet().iterator();
-			while(itr.hasNext()) {
-				Map.Entry<String, Double> entry1 = (Entry<String, Double>)itr.next();
-				
-			}
-			System.gc();
-			
-			System.out.println(entry.getKey()+" Map normalized!");
-		}
-	}
-	
+	 
 	public static void main(String[] args) {
 		BigramAnalysis analysis = new BigramAnalysis();
-		Long time = System.currentTimeMillis();
-		analysis.process();
-		analysis.sortMaps();
-		analysis.normalizeMaps();
-		analysis.writeintoFile();
-		//analysis.displayMap(new HashMap<String, Double>());
-		time = (System.currentTimeMillis() - time)/1000;
-		System.out.println("Time taken: "+time/60+" mins and "+time%60+" sec");
+		analysis.run(75);
 	}
 
 	
