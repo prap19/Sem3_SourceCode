@@ -19,13 +19,12 @@ public interface SVNInterface {
 	
 	
 	//Training Dataset
-	public static final String RSRC_TRAIN_POSDATA ="rsrc"+File.separator+"POSDataset";
-	public static final String RSRC_TRAIN_TXT ="rsrc"+File.separator+"TextFiles";
-	
+	public static final String RSRC_TRAIN_POSDATA ="RSRC_TRAIN_POSDATA";
+	public static final String RSRC_TRAIN_TXT ="RSRC_TRAIN_TXT";
 	
 	//TestingDataset
-	public static final String RSRC_TEST_POSDATA ="rsrc"+File.separator+"POSDataset";
-	public static final String RSRC_TEST_TXT ="rsrc"+File.separator+"TextFiles";
+	public static final String RSRC_TEST_POSDATA ="RSRC_TEST_POSDATA";
+	public static final String RSRC_TEST_TXT ="RSRC_TEST_TXT";
 	
 	/**
 	 * This method will return number of attributes that the implemented class will add in FastVector.
@@ -36,16 +35,18 @@ public interface SVNInterface {
 	
 	/**
 	 * This method will add attribute names in feature vector(weka object in this case)
+	 * @param featureList 
 	 */
-	public void addAttributes(FastVector fastVector);
+	public void addAttributes(FastVector fastVector, HashMap<String,Integer> featureList);
 	
 	
 	/**
 	 * This method will evaluate the values in the feature vector
 	 * @param train 
-	 * @param fileIndex 
+	 * @param populateFile 
+	 * @param featureList 
 	 */
-	public void addVector(FastVector fastVector, Instance trainInstance, boolean train, int fileIndex);
+	public void addVector(FastVector fastVector, Instance trainInstance, boolean train, PopulateFile populateFile, HashMap<String,Integer> featureList);
 	
 	/**
 	 * This method will get required file for populating the feature vector from a specified data folder at a specified Index 
@@ -53,5 +54,5 @@ public interface SVNInterface {
 	 * @param fileIndex
 	 * @return
 	 */
-	public File getDataFile(String FolderName,int fileIndex);
+	public File getDataFile(String FolderName);
 }

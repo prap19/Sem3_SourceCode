@@ -42,11 +42,13 @@ public abstract class AbstractSVNAlgo {
 	 private int				FileIndex;
 	 private int 				noOfTrainingInstances;
 	 private int 				noOfTestingInstances;
-	// public static final String RSRC_TRAIN_POSDATA ="rsrc"+File.separator+"TrainPOSDataset";
-	 public static final String RSRC_TRAIN_TXT ="rsrc"+File.separator+"TrainTextFiles";
-	// public static final String RSRC_TEST_POSDATA ="rsrc"+File.separator+"TestPOSDataset";
-	 public static final String RSRC_TEST_TXT ="rsrc"+File.separator+"TestTextFiles";
-	 	
+	 private PopulateFile       populateFile;
+	 public  HashMap<String, Integer> featureList; 
+	 //public static final String RSRC_TRAIN_POSDATA ="rsrc"+File.separator+"TrainPOSDataset";
+	 public static final String RSRC_TRAIN_TXT ="C:\\Data\\AgePredictionDataset\\"+File.separator+"3000TrainTextFiles";
+	 //public static final String RSRC_TEST_POSDATA ="rsrc"+File.separator+"TestPOSDataset";
+	 public static final String RSRC_TEST_TXT ="C:\\Data\\AgePredictionDataset\\"+File.separator+"TestTextFiles";
+		 	
 	 
 	 /**
 	 *  Sub-class should add SVN interfaces objects in this arraylist. 
@@ -54,16 +56,16 @@ public abstract class AbstractSVNAlgo {
 	protected ArrayList<SVNInterface> arraylist = new ArrayList<SVNInterface>();
 	
 	private void init() {
+		
 		this.addSVNInterfaces();
 		this.setFastVectorCapacity();
+		this.featureList = new HashMap<String, Integer>();
 		this.addAttributes();
 		this.trainInstances = new Instances("trainInstances", this.fastvector, 10);
 		this.testInstances = new Instances("testInstances", this.fastvector, 10);
 		this.trainInstances.setClassIndex(fastvector.capacity()-1);
 		this.testInstances.setClassIndex(fastvector.capacity()-1);
 		this.smo = new SMO();
-		//this.FileMap = new HashMap<String, File>();
-		//this.smo.setKernel(Kernel.)
 		/**
 		 * setting up the parameters for the SMO Classifier
 		 */
@@ -74,6 +76,8 @@ public abstract class AbstractSVNAlgo {
 		}
 		this.setNoOfTrainingInstances(RSRC_TRAIN_TXT);
 		this.setNoOfTestingInstances(RSRC_TEST_TXT);
+		this.populateFile = new PopulateFile();
+		
 	}
 	
 	 private void setFastVectorCapacity() {
@@ -92,13 +96,13 @@ public abstract class AbstractSVNAlgo {
 	private void addAttributes() {
 
 		for(SVNInterface svnInterface: this.arraylist) {
-			svnInterface.addAttributes(this.fastvector);						
+			svnInterface.addAttributes(this.fastvector,this.featureList);						
 		}
 		
 		this.fastvectorClass = new FastVector(3);
+		this.fastvectorClass.addElement("10s");
 		this.fastvectorClass.addElement("20s");
 		this.fastvectorClass.addElement("30s");
-		this.fastvectorClass.addElement("40s");
 		this.classAttribute = new Attribute("theClass", this.fastvectorClass);
 		this.fastvector.addElement(this.classAttribute)	;
 	}
@@ -114,19 +118,22 @@ public abstract class AbstractSVNAlgo {
 		for(int i=0; i<this.getNoOfTrainingInstances(); i++){
 			//FileMap = getAllFeatureFilesForIthInstance(i,RSRC_TRAIN_TXT,RSRC_TRAIN_POSDATA);
 			FileIndex = i;
+			this.populateFile.setFileMap(FileIndex);
 			for(SVNInterface svnInterface: this.arraylist) {
 				trainInstance = new Instance(this.fastvector.capacity());
-				svnInterface.addVector(this.fastvector, trainInstance,true, FileIndex);
+				svnInterface.addVector(this.fastvector, trainInstance,true,this.populateFile,this.featureList);
+				this.trainInstances.add(trainInstance);
 			}
-			this.trainInstances.add(trainInstance);
+			
 		}
 		
 		for(int i=0; i<this.getNoOfTestingInstances(); i++){
 			for(SVNInterface svnInterface: this.arraylist) {
 				//FileMap = getAllFeatureFilesForIthInstance(i,RSRC_TEST_TXT,RSRC_TEST_POSDATA);
 				FileIndex = i;
+				this.populateFile.setFileMap(FileIndex);
 				testInstance = new Instance(this.fastvector.capacity());
-				svnInterface.addVector(this.fastvector, testInstance,false, FileIndex);
+				svnInterface.addVector(this.fastvector, testInstance,false,this.populateFile,this.featureList);
 				this.testInstances.add(testInstance);
 			}
 		}	

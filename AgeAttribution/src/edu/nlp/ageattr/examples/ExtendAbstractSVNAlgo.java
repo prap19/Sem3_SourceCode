@@ -7,7 +7,7 @@ public class ExtendAbstractSVNAlgo extends AbstractSVNAlgo {
 	@Override
 	protected void addSVNInterfaces() {
 		// TODO Auto-generated method stub
-		this.arraylist.add(new SVNInterfaceExample());
+		this.arraylist.add(new BagOfWords());
 	}
 
 	/**

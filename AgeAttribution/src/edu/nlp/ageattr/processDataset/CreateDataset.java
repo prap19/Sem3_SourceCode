@@ -427,8 +427,155 @@ public static String proceesFileName(File fileEntry) {
 			return "thirtees";
 		}
 	}
+
+	public static String getBloggerAge(String outputfileName) {
+		String[] fname = outputfileName.split("\\.");
+		
+		if(Integer.parseInt(fname[2])>=13 && Integer.parseInt(fname[2])<=17){
+			return "10s";
+		}
+		else if(Integer.parseInt(fname[2])>=23 && Integer.parseInt(fname[2])<=27){
+			return "20s";
+		}
+		else{
+			return "30s";
+		}
+	}
+	public void createEqualyDistributedTrainingDocs(File inputFolder,
+			File outputFolder, int noofdocsperageclass) {
+		File files[];
+		int noOfTeenFiles = 0,noOfTwentieFile = 0,noOfThirteesFile = 0;
+		BufferedWriter bufferedWriter = null;
+		files = inputFolder.listFiles();
+		int count =0;
+	    for (final File fileEntry : files) {
+		 	count++;
+		 	System.out.println("the count is "+count);
+		 	String OutputfileName = CreateDataset.proceesFileName(fileEntry);
+		 	//System.out.println("hey");
+		 	if(getAuthorAge(OutputfileName).equalsIgnoreCase("teens") && noOfTeenFiles<noofdocsperageclass){
+		 		noOfTeenFiles++;
+		 		createTextFile(fileEntry,outputFolder,OutputfileName);
+		 	}else if(getAuthorAge(OutputfileName).equalsIgnoreCase("twenties") && noOfTwentieFile<noofdocsperageclass){
+	    		noOfTwentieFile++;
+	    		createTextFile(fileEntry,outputFolder,OutputfileName);
+	    	}else{
+	    		if(noOfThirteesFile<noofdocsperageclass){
+	    			noOfThirteesFile++;
+		    		createTextFile(fileEntry,outputFolder,OutputfileName);
+	    		}
+	    		
+	    	}
+
+		 	
+	    }
+		
+		
+	}
+	private void createTextFile(File fileEntry, File outputFolder, String outputfileName) {
+		BufferedReader bufferedReader = null;
+		BufferedWriter bufferedWriter = null;
+		
+		try {
+			bufferedReader = new BufferedReader(new FileReader(fileEntry));
+			bufferedWriter = new BufferedWriter(new FileWriter(outputFolder+"\\"+outputfileName));
+			String line ="";
+			while((line  = bufferedReader.readLine())!=null){
+				bufferedWriter.write(line);
+				bufferedWriter.newLine();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				bufferedReader.close();
+				bufferedWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+	}
+	public void createNormalisedWordFreqFile(File teensfilewordfreq,
+		File teensfilewordfreqnormalised) {
+		BufferedReader bufferedReader = null;
+		BufferedWriter bufferedWriter = null;
+		try {
+			bufferedReader = new BufferedReader(new FileReader(teensfilewordfreq));
+			bufferedWriter = new BufferedWriter(new FileWriter(teensfilewordfreqnormalised));
+			String line;
+			while((line = bufferedReader.readLine())!=null){
+				String[] a = line.split("\\s+");
+				double freq = (double)Integer.parseInt(a[1])/10000;
+				bufferedWriter.write(a[0]+" "+freq);
+				bufferedWriter.newLine();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				bufferedReader.close();
+				bufferedWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+	public void createWordFrequencyNormalizedFile(File inputFile,
+			File ouputFile) {
+		BufferedReader bufferedReader = null,bufReader = null;
+		BufferedWriter bufferedWriter = null;
+		try {
+			bufferedReader = new BufferedReader(new FileReader(inputFile));
+			String line;
+			int countOfWords=0;
+			while((line = bufferedReader.readLine())!=null){
+				String[] a = line.split("\\s+");
+				countOfWords+= Integer.parseInt(a[1]);	
+			}
+			bufferedReader.close();
+			bufReader = new BufferedReader(new FileReader(inputFile));
+			bufferedWriter = new BufferedWriter(new FileWriter(ouputFile));
+			while((line = bufReader.readLine())!=null){
+				String[] a = line.split("\\s+");
+				double freq = (double)Integer.parseInt(a[1])/countOfWords;
+				bufferedWriter.write(a[0]+" "+freq);
+				bufferedWriter.newLine();	
+			}
+			
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				bufferedReader.close();
+				bufferedWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	
-	
+	}
 	
 	
 }

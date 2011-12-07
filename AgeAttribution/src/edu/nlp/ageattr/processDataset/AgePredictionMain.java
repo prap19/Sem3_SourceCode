@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.xml.crypto.Data;
+
 
 import edu.nlp.ageattr.Baseline.NaiveBayesTest;
 import edu.nlp.ageattr.Baseline.NaiveBayesTrain;
@@ -15,26 +17,39 @@ import edu.nlp.ageattr.helper.LexicalContentFeatures.TopWords;
 import edu.nlp.ageattr.helper.wordFrequency.*;;
 
 public class AgePredictionMain {
-	static final File cleanXmlFolderTest = new File(System.getenv("NLP")+"/CleanXML");
-	static final File DataTextFolder = new File(System.getenv("NLP")+"/TextFiles");
-	static final File XmlDataset = new File(System.getenv("NLP")+"/CleanXmlDataset");
-	static final File SingleTeensFile = new File(System.getenv("NLP")+"//ConcatenatedFiles//TeensFileTrain.txt");
-	static final File SingleTwentiesFile = new File(System.getenv("NLP")+"//ConcatenatedFiles//TwentiesFileTrain.txt");
-	static final File SingleThiriesFile = new File(System.getenv("NLP")+"//ConcatenatedFiles//ThirteesFileTrain.txt");
+	static final File cleanXmlFolderTest = new File("rsrc/CleanXML");
+	static final File DataTextFolder = new File("C://Data//AgePredictionDataset//3000TrainTextFiles");
+	static final File XmlDataset = new File("rsrc/CleanXmlDataset");
 	
-	static final File TeensFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerTeensFileTrainOut.txt");
-	static final File TwentiesFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerTwentiesFileTrainOut.txt");
-	static final File ThiriesFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerThirteesFileTrainOut.txt");
+	
+	static final File SingleTeensFile = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//TeensFileTrain.txt");
+	static final File SingleTwentiesFile = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//TwentiesFileTrain.txt");
+	static final File SingleThiriesFile = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//ThirteesFileTrain.txt");
+	
+	static final File TeensFileWordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//OrderedLowerTeensFileTrainOut.txt");
+	static final File TwentiesFileWordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//OrderedLowerTwentiesFileTrainOut.txt");
+	static final File ThiriesFileWordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//OrderedLowerThirteesFileTrainOut.txt");
+	
+	static final File TeensFileWordFreqDivideBy1000 = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//NormalisedTeensWordFreuency.txt");
+	static final File TwentiesFileWordFreqDivideBy1000 = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//NormalisedTwentiesWordFreuency.txt");
+	static final File ThiriesFileWordFreqDivideBy1000 = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//NormalisedThirteesWordFreuency.txt");
+	
+	static final File TeensFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedTeensWordFreuency.txt");
+	static final File TwentiesFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedTwentiesWordFreuency.txt");
+	static final File ThiriesFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedThirteesWordFreuency.txt");
+	
+	
 	
 	static final File StopWordFile = new File("rsrc/NewStopWordList.txt");
-	static final File SamplePOSTaggedDataset = new File(System.getenv("NLP")+"/samplePOSDataset");
-	static final File POSTaggedDataset = new File(System.getenv("NLP")+"/POSDataset");
-	static final File sample = new File(System.getenv("NLP")+"/smallSample");
-	static final File FrequencyOutputFile = new File(System.getenv("NLP")+"/ConcatenatedFiles/TeensOutputFile.txt");
-	static final File TrainFolder = new File(System.getenv("NLP")+"//TrainTextFiles");
-	static final File TestFolder = new File(System.getenv("NLP")+"/TestTextFiles");
+	static final File SamplePOSTaggedDataset = new File("rsrc/samplePOSDataset");
+	static final File POSTaggedDataset = new File("rsrc/POSDataset");
+	static final File sample = new File("rsrc/smallSample");
+	static final File FrequencyOutputFile = new File("rsrc/ConcatenatedFiles/TeensOutputFile.txt");
+	static final File TrainFolder = new File("C://Data//AgePredictionDataset//1500TrainTextFiles");
+	static final File TestFolder = new File("rsrc/TestTextFiles");
 	
 	static final int numberOfTraingPosts = 9000;
+	static final int noOfDocsPerAgeClass = 500;
 	static HashMap<String, HashMap<String, Integer>> naiveBayesMap;
 	static ArrayList<PersonBlogs> TrainingPosts;
 	static CreateDataset createDataset;
@@ -48,10 +63,10 @@ public class AgePredictionMain {
 		 * create clean xml files
 		 */
 		createDataset = new CreateDataset();
-		//final File folder = new File("rsrc/blogs/blogs");
-		//final File cleanXmlFolder = new File("rsrc/CleanXMLTrain");
-		//String cleanXmlFolderName = "C:\\Users\\piyush\\workspace\\AgePrediction\\rsrc\\CleanXMLTrain\\";
-	//	createDataset.createCleanXMLFiles(folder,cleanXmlFolderName);
+		final File folder = new File("rsrc/blogs/blogs");
+		final File cleanXmlFolder = new File("rsrc/CleanXMLTrain");
+		String cleanXmlFolderName = "C:\\Users\\piyush\\workspace\\AgePrediction\\rsrc\\CleanXMLTrain\\";
+		createDataset.createCleanXMLFiles(folder,cleanXmlFolderName);
 		
 		/**
 		 * create Dataset of the person blogs from the clean xml files
@@ -102,6 +117,22 @@ public class AgePredictionMain {
 		 */
 		topWords = new TopWords();
 		topWords.create();
+		
+//		createDataset.createEqualyDistributedTrainingDocs(DataTextFolder,TrainFolder,noOfDocsPerAgeClass);
+		
+		/**
+		 * create normalized word freq files 
+		 */
+	/*	createDataset.createNormalisedWordFreqFile(TeensFileWordFreq,TeensFileWordFreqNormalised);
+		createDataset.createNormalisedWordFreqFile(TwentiesFileWordFreq,TwentiesFileWordFreqNormalised);
+		createDataset.createNormalisedWordFreqFile(ThiriesFileWordFreq,ThiriesFileWordFreqNormalised);*/
+		
+	/*	createDataset.createWordFrequencyNormalizedFile(TeensFileWordFreq,TeensFileWordFreqNormalised);
+		createDataset.createWordFrequencyNormalizedFile(TwentiesFileWordFreq,TwentiesFileWordFreqNormalised);
+		createDataset.createWordFrequencyNormalizedFile(ThiriesFileWordFreq,ThiriesFileWordFreqNormalised);*/
+		
+	//	createDataset.createEqualyDistributedTrainingDocs(DataTextFolder,TrainFolder,noOfDocsPerAgeClass);
+		
 	}
 
 }

@@ -24,13 +24,14 @@ public class TopWords {
 	public int teenCount = 0;
 	public int twentiesCount = 0;
 	public int thirtiesCount = 0;
-	static final File TeensFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerTeensFileTrainOut.txt");
-	static final File TwentiesFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerTwentiesFileTrainOut.txt");
-	static final File ThiriesFileWordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//OrderedLowerThirteesFileTrainOut.txt");
-	
-	static final File TeensFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedTeensFileTrainOut.txt");
-	static final File TwentiesFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedTwentiesFileTrainOut.txt");
-	static final File ThiriesFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedThirteesFileTrainOut.txt");
+	public float range = 10;
+	static final File TeensFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedTeensWordFreuency.txt");
+	static final File TwentiesFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedTwentiesWordFreuency.txt");
+	static final File ThiriesFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedThirteesWordFreuency.txt");
+	static final File Top150WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//top150words.txt");
+	static final File TeensFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedTeensFileTrainOut.txt");
+	static final File TwentiesFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedTwentiesFileTrainOut.txt");
+	static final File ThiriesFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedThirteesFileTrainOut.txt");
 
 	public TopWords(){
 		stopWord = new StopWord();
@@ -125,39 +126,81 @@ public class TopWords {
 	public void create(){
 		TopWordMap = new HashMap<String, String>();
 		
-		LinkedHashMap<String , Integer> teenMap = new LinkedHashMap<String, Integer>();
-		LinkedHashMap<String , Integer> twentiesMap = new LinkedHashMap<String, Integer>();
-		LinkedHashMap<String , Integer> thirteesMap = new LinkedHashMap<String, Integer>();
+		LinkedHashMap<String , Float> teenMap = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String , Float> twentiesMap = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String , Float> thirteesMap = new LinkedHashMap<String, Float>();
 		
-		teenMap = createTop150Map(TeensFileWordFreq);
-		twentiesMap = createTop150Map(TwentiesFileWordFreq);
-		thirteesMap = createTop150Map(ThiriesFileWordFreq);
+		teenMap = createTop500Map(TeensFileWordFreqNormalised);
+		twentiesMap = createTop500Map(TwentiesFileWordFreqNormalised);
+		thirteesMap = createTop500Map(ThiriesFileWordFreqNormalised);
 		
-		updateWordMap(TopWordMap,teenMap,twentiesMap,thirteesMap,"teens","twenties","thirties");
-		updateWordMap(TopWordMap,twentiesMap,teenMap,thirteesMap,"twenties","teens","thirties");
-		updateWordMap(TopWordMap,thirteesMap,twentiesMap,teenMap,"thirties","twenties","teens");
+		BufferedWriter bufferedWriter = null;
+		try {
+			bufferedWriter = new BufferedWriter(new FileWriter(Top150WordFreq));
+			updateWordMap(TopWordMap,teenMap,twentiesMap,thirteesMap,"teens","twenties","thirties",bufferedWriter);
+			updateWordMap(TopWordMap,twentiesMap,teenMap,thirteesMap,"twenties","teens","thirties",bufferedWriter);
+			updateWordMap(TopWordMap,thirteesMap,twentiesMap,teenMap,"thirties","twenties","teens",bufferedWriter);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				bufferedWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		
+		System.out.println("ther");
 	}
 
 
 	private void updateWordMap(HashMap<String, String> topWordMap,
-			LinkedHashMap<String, Integer> AMap,
-			LinkedHashMap<String, Integer> BMap,
-			LinkedHashMap<String, Integer> CMap, String aClassName,String bClassName,String cClassName) {
+			LinkedHashMap<String, Float> AMap,
+			LinkedHashMap<String, Float> BMap,
+			LinkedHashMap<String, Float> CMap, String aClassName,String bClassName,String cClassName, BufferedWriter bufferedWriter) {
 			Iterator iterator = AMap.entrySet().iterator();  
-			while (iterator.hasNext() && ! isCount50(aClassName)) {
+			while (iterator.hasNext() ) {
 				Map.Entry entry = (Entry) iterator.next();
 				iterator.remove();
 				String key = entry.getKey().toString();
-				int value = (Integer) entry.getValue();
+				float value = (Float) entry.getValue();
 				//AMap.remove(key);
 				String classLabel =  getClassLabelForWord(value, key, BMap, CMap,bClassName,cClassName,aClassName);
-				updateClassCounts(classLabel);
-				topWordMap.put(key, classLabel);
-				if(BMap.containsKey(key))
+				if(!(classLabel.equals("wordNotInRange"))){
+					if(!isCount50(classLabel)){
+						updateClassCounts(classLabel);	
+						topWordMap.put(key, classLabel);
+						try {
+							bufferedWriter.write(classLabel+" "+key);
+							bufferedWriter.newLine();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+				}
+				/**
+				 * even if the word is not in range remove it from all the maps
+				 */
+				if(classLabel.equals("wordNotInRange")){
+					if(BMap.containsKey(key)){
+						BMap.remove(key);
+					}
+					if(CMap.containsKey(key)){
+						CMap.remove(key);
+					}
+				}
+				/**
+				 * if the word is included in the unique word list remove it from all the maps
+				 */
+				if(BMap.containsKey(key) && topWordMap.containsKey(key))
 				BMap.remove(key);
-				if(CMap.containsKey(key))
+				if(CMap.containsKey(key) && topWordMap.containsKey(key))
 				CMap.remove(key);
 				
 			}
@@ -165,15 +208,19 @@ public class TopWords {
 	}
 
 
+	private boolean canUpdateMap(String classLabel) {
+		
+		return false;
+	}
 	private boolean isCount50(String className) {
 		if(className.equalsIgnoreCase("teens")){
-			if(teenCount==50)
+			if(teenCount>=50)
 				return true;
 		}else if(className.equalsIgnoreCase("twenties")){
-			if(twentiesCount==50)
+			if(twentiesCount>=50)
 				return true;
 		}else if(className.equalsIgnoreCase("thirties")){
-			if(thirtiesCount==50)
+			if(thirtiesCount>=50)
 				return true;
 		}
 		return false;
@@ -191,38 +238,51 @@ public class TopWords {
 	}
 
 
-	private String getClassLabelForWord(int value, String key,
-			LinkedHashMap<String, Integer> bMap,
-			LinkedHashMap<String, Integer> cMap, String bClassName, String cClassName, String aClassName) {
+	private String getClassLabelForWord(float value, String key,
+			LinkedHashMap<String, Float> bMap,
+			LinkedHashMap<String, Float> cMap, String bClassName, String cClassName, String aClassName) {
 		String classLabel="";
-		int bValue = -1,cValue =-1;
-		if(bMap.containsKey(key)){
+		float bValue = -1,cValue =-1;
+		if(bMap.containsKey(key) && !isCount50(bClassName)){
 			 bValue = bMap.get(key);
 		}
-		if(cMap.containsKey(key)){
+		if(cMap.containsKey(key) && !isCount50(cClassName)){
 			 cValue = cMap.get(key);
 		}
-		if(value> bValue && value>cValue) return aClassName;
-		else if(bValue> value && bValue > cValue) return bClassName;
-		else return cClassName;
 		
+		if(!isWithinRange(value,bValue) && !isWithinRange(value,cValue) && !isWithinRange(cValue,bValue)){
+			if(value> bValue && value>cValue ) return aClassName;
+			else if(bValue> value && bValue > cValue) return bClassName;
+			else return cClassName;
+		}
+		else
+			return "wordNotInRange";
 	}
 
 
-	private LinkedHashMap<String, Integer> createTop150Map(
+	private boolean isWithinRange(float value, float bValue) {
+		float val = Math.abs(value - bValue);
+		if(value ==-1 || bValue == -1)
+		return false;
+		if(val*10000 > range)	
+			return false;
+		return true;
+		
+	}
+	private LinkedHashMap<String, Float> createTop500Map(
 			File inputFile) {
-		LinkedHashMap< String, Integer> map = new LinkedHashMap<String, Integer>();
+		LinkedHashMap< String, Float> map = new LinkedHashMap<String, Float>();
 		int count =0;
 		BufferedReader input = null;
 		try {
 			input = new BufferedReader(new FileReader(inputFile));
 			String line ="";
-			while((line = input.readLine()) != null && count!=150){
-				
+			while((line = input.readLine()) != null && count!=1500){
+			
 				String words[] = line.split("\\s");
 				if(StopWord.isStopWord(words[0]) == 0){
 					count++;
-					map.put(words[0], Integer.parseInt(words[1]));
+					map.put(words[0], Float.parseFloat(words[1]));
 				}
 				
 			}
