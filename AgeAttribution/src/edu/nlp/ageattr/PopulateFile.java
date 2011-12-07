@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 public class PopulateFile {
 private HashMap<String,File> FileMap;
-public static final String RSRC_TRAIN_TXT = System.getenv("NLP")+File.separator+"1500TrainTextFiles";
-public static final String RSRC_TEST_TXT = System.getenv("NLP")+File.separator+"1500TrainTextFiles";
+public static final String RSRC_TRAIN_TXT = "C:\\Data\\AgePredictionDataset\\"+File.separator+"3000TrainTextFiles";
+public static final String RSRC_TEST_TXT = "C:\\Data\\AgePredictionDataset\\"+File.separator+"3000TestTextFiles";
 
 /*public static final String RSRC_TRAIN_POSDATA ="rsrc"+File.separator+"TrainPOSDataset";
 public static final String RSRC_TRAIN_SCDATA ="rsrc"+File.separator+"TrainSCDataset";*/
@@ -33,7 +33,7 @@ public void setFileMap(int fileIndex) {
     fileMap.put("RSRC_TEST_TXT", TextFilesTest[fileIndex]);
 	
 	
-/*	File POSFolder = new File(RSRC_TRAIN_POSDATA);
+	/*	File POSFolder = new File(RSRC_TRAIN_POSDATA);
 	File[] POSFiles = POSFolder.listFiles();
 	fileMap.put("RSRC_TRAIN_POSDATA", POSFiles[fileIndex]);
 	

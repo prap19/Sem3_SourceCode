@@ -18,7 +18,7 @@ import edu.nlp.ageattr.helper.wordFrequency.*;;
 
 public class AgePredictionMain {
 	static final File cleanXmlFolderTest = new File("rsrc/CleanXML");
-	static final File DataTextFolder = new File("C://Data//AgePredictionDataset//3000TrainTextFiles");
+	static final File DataTextFolder = new File("C://Data//AgePredictionDataset//TestTextFiles");
 	static final File XmlDataset = new File("rsrc/CleanXmlDataset");
 	
 	
@@ -45,11 +45,11 @@ public class AgePredictionMain {
 	static final File POSTaggedDataset = new File("rsrc/POSDataset");
 	static final File sample = new File("rsrc/smallSample");
 	static final File FrequencyOutputFile = new File("rsrc/ConcatenatedFiles/TeensOutputFile.txt");
-	static final File TrainFolder = new File("C://Data//AgePredictionDataset//1500TrainTextFiles");
-	static final File TestFolder = new File("rsrc/TestTextFiles");
+	static final File TrainFolder = new File("C://Data//AgePredictionDataset//6000TrainTextFiles");
+	static final File TestFolder = new File("C://Data//AgePredictionDataset//6000TestTextFiles");
 	
 	static final int numberOfTraingPosts = 9000;
-	static final int noOfDocsPerAgeClass = 500;
+	static final int noOfDocsPerAgeClass = 2000;
 	static HashMap<String, HashMap<String, Integer>> naiveBayesMap;
 	static ArrayList<PersonBlogs> TrainingPosts;
 	static CreateDataset createDataset;
@@ -115,8 +115,8 @@ public class AgePredictionMain {
 		/**
 		 * create Top 50 wor map
 		 */
-		topWords = new TopWords();
-		topWords.create();
+	/*	topWords = new TopWords();
+		topWords.create();*/
 		
 //		createDataset.createEqualyDistributedTrainingDocs(DataTextFolder,TrainFolder,noOfDocsPerAgeClass);
 		
@@ -131,8 +131,8 @@ public class AgePredictionMain {
 		createDataset.createWordFrequencyNormalizedFile(TwentiesFileWordFreq,TwentiesFileWordFreqNormalised);
 		createDataset.createWordFrequencyNormalizedFile(ThiriesFileWordFreq,ThiriesFileWordFreqNormalised);*/
 		
-	//	createDataset.createEqualyDistributedTrainingDocs(DataTextFolder,TrainFolder,noOfDocsPerAgeClass);
-		
+		//createDataset.createEqualyDistributedTrainingDocs(DataTextFolder,TrainFolder,noOfDocsPerAgeClass);
+		createDataset.createEqualyDistributedTrainingDocs(DataTextFolder,TestFolder,noOfDocsPerAgeClass);
 	}
 
 }

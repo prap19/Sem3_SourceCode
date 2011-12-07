@@ -45,18 +45,30 @@ public class BagOfWords implements SVNInterface{
 	@Override
 	public void addVector(FastVector fastVector, Instance trainInstance,
 			boolean train, PopulateFile populateFile,HashMap<String,Integer> featureList) {
-		HashMap<String, Integer> WordFrequencyMap = new HashMap<String, Integer>();
+		HashMap<String, Float> WordFrequencyMap = new HashMap<String, Float>();
 		initializeMap(WordFrequencyMap);
+		File blogger;
+		int countOfWords = 0;
+		
 		if(train == true){
-			File blogger = populateFile.getFileMap(RSRC_TRAIN_TXT);
+			blogger = populateFile.getFileMap(RSRC_TRAIN_TXT);
+		}
+		else{
+			blogger = populateFile.getFileMap(RSRC_TEST_TXT);
+		}
+		BufferedReader bufferedReader = null;
 			try {
-				BufferedReader bufferedReader = new BufferedReader(new FileReader(blogger));
+				bufferedReader = new BufferedReader(new FileReader(blogger));
 				String line="";
+				countOfWords =0;
 				while((line = bufferedReader.readLine())!=null){
+					//line = line.replaceAll("\\W+", "");
+					line = line.replaceAll("[/./?/!/:/;/-/—/(/)/[/]/’/“/”///,/`/']", "");
 					String s[] = line.split("\\s+");
+					countOfWords+= s.length;
 					for(int i=0;i<s.length;i++){
 						if(topWords.TopWordMap.containsKey(s[i].toLowerCase())){
-						updateWordFreqMap(WordFrequencyMap,s[i]);
+						updateWordFreqMap(WordFrequencyMap,s[i].toLowerCase());
 						}
 					}
 				}
@@ -66,41 +78,54 @@ public class BagOfWords implements SVNInterface{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				try {
+					bufferedReader.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			String fileName = CreateDataset.proceesFileName(blogger);
+			Iterator iterator = WordFrequencyMap.keySet().iterator();
+			while (iterator.hasNext()) {  
+				String key = iterator.next().toString();
+				float val = WordFrequencyMap.get(key);
+				val = val/countOfWords;
+				WordFrequencyMap.put(key, val);
+				
+			}
 			/*
 			 * populate the feature vector
 			 */
-			Iterator iterator = TopWords.TopWordMap.keySet().iterator();
+			iterator = TopWords.TopWordMap.keySet().iterator();
 			while (iterator.hasNext()) {  
 				String key = iterator.next().toString();
 				trainInstance.setValue((Attribute)fastVector.elementAt(featureList.get(key)), WordFrequencyMap.get(key));   
 			}
 			 trainInstance.setValue((Attribute)fastVector.elementAt(fastVector.size()-1), CreateDataset.getBloggerAge(fileName));
 			
-		}else{
-			
-		}
+		
 	}
 
-	private void updateWordFreqMap(HashMap<String, Integer> wordFrequencyMap,
+	private void updateWordFreqMap(HashMap<String, Float> wordFrequencyMap,
 			String key) {
 		String lowerKey = key.toLowerCase();
 		if(wordFrequencyMap.containsKey(lowerKey)){
-			int val = wordFrequencyMap.get(lowerKey);
+			float val = wordFrequencyMap.get(lowerKey);
 			wordFrequencyMap.put(lowerKey, val+1);
 		}else{
-			wordFrequencyMap.put(lowerKey, 1);
+			wordFrequencyMap.put(lowerKey, (float)1.0);
 		}
 		
 	}
 
-	private void initializeMap(HashMap<String, Integer> wordFrequencyMap) {
+	private void initializeMap(HashMap<String, Float> wordFrequencyMap) {
 		Iterator iterator = TopWords.TopWordMap.keySet().iterator();
 		
 		while (iterator.hasNext()) {  
 			String key = iterator.next().toString();
-			wordFrequencyMap.put(key.toLowerCase(), 0);
+			wordFrequencyMap.put(key.toLowerCase(), (float)0.0);
 		}
 		
 	}

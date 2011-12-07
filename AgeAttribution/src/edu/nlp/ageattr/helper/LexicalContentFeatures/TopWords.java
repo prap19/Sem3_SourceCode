@@ -24,12 +24,13 @@ public class TopWords {
 	public int teenCount = 0;
 	public int twentiesCount = 0;
 	public int thirtiesCount = 0;
-	public float range = 1;
-	static final File TeensFileWordFreqNormalised = new File("output\\bigram\\teens.txt");
-	static final File TwentiesFileWordFreqNormalised = new File("output\\bigram\\twenties.txt");
-	static final File ThiriesFileWordFreqNormalised = new File("output\\bigram\\thirties.txt");
+	public float range = 10;
+	static final File TeensFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedTeensWordFreuency.txt");
+	static final File TwentiesFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedTwentiesWordFreuency.txt");
+	static final File ThiriesFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedThirteesWordFreuency.txt");
 	
-	static final File Top150WordFreq = new File("top150\\bigram\\top150words.txt");
+	
+	static final File Top150WordFreq = new File("top150\\unigrams\\top150words.txt");
 	
 	static final File TeensFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedTeensFileTrainOut.txt");
 	static final File TwentiesFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedTwentiesFileTrainOut.txt");

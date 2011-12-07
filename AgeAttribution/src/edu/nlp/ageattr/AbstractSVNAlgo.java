@@ -47,7 +47,7 @@ public abstract class AbstractSVNAlgo {
 	 //public static final String RSRC_TRAIN_POSDATA ="rsrc"+File.separator+"TrainPOSDataset";
 	 public static final String RSRC_TRAIN_TXT ="C:\\Data\\AgePredictionDataset\\"+File.separator+"3000TrainTextFiles";
 	 //public static final String RSRC_TEST_POSDATA ="rsrc"+File.separator+"TestPOSDataset";
-	 public static final String RSRC_TEST_TXT ="C:\\Data\\AgePredictionDataset\\"+File.separator+"TestTextFiles";
+	 public static final String RSRC_TEST_TXT ="C:\\Data\\AgePredictionDataset\\"+File.separator+"3000TestTextFiles";
 		 	
 	 
 	 /**
@@ -119,23 +119,25 @@ public abstract class AbstractSVNAlgo {
 			//FileMap = getAllFeatureFilesForIthInstance(i,RSRC_TRAIN_TXT,RSRC_TRAIN_POSDATA);
 			FileIndex = i;
 			this.populateFile.setFileMap(FileIndex);
+			trainInstance = new Instance(this.fastvector.capacity());
 			for(SVNInterface svnInterface: this.arraylist) {
-				trainInstance = new Instance(this.fastvector.capacity());
 				svnInterface.addVector(this.fastvector, trainInstance,true,this.populateFile,this.featureList);
-				this.trainInstances.add(trainInstance);
 			}
+			this.trainInstances.add(trainInstance);
 			
 		}
 		
 		for(int i=0; i<this.getNoOfTestingInstances(); i++){
+			//FileMap = getAllFeatureFilesForIthInstance(i,RSRC_TEST_TXT,RSRC_TEST_POSDATA);
+			FileIndex = i;
+			this.populateFile.setFileMap(FileIndex);
+			testInstance = new Instance(this.fastvector.capacity());
 			for(SVNInterface svnInterface: this.arraylist) {
-				//FileMap = getAllFeatureFilesForIthInstance(i,RSRC_TEST_TXT,RSRC_TEST_POSDATA);
-				FileIndex = i;
-				this.populateFile.setFileMap(FileIndex);
-				testInstance = new Instance(this.fastvector.capacity());
+			
 				svnInterface.addVector(this.fastvector, testInstance,false,this.populateFile,this.featureList);
-				this.testInstances.add(testInstance);
+				
 			}
+			this.testInstances.add(testInstance);
 		}	
 	}
 	
@@ -171,6 +173,8 @@ public abstract class AbstractSVNAlgo {
 	
 	public void testClassifier() {
 		System.err.println("test Classifier");
+		float accuracy =0;
+		int correctlyClassified = 0;
 		for(int i=0; i<this.testInstances.numInstances(); i++) {
 			Double prediction = 0.0;
 			try {
@@ -178,12 +182,19 @@ public abstract class AbstractSVNAlgo {
 				System.out.print("ID: " + testInstances.instance(i).value(0));
                 System.out.print(", actual: " + testInstances.classAttribute().value((int) testInstances.instance(i).classValue()));
                 System.out.println(", predicted: " + testInstances.classAttribute().value(prediction.intValue()));
-                
+                String input = testInstances.classAttribute().value((int) testInstances.instance(i).classValue());
+                String output = testInstances.classAttribute().value(prediction.intValue());
+                if(input.equals(output)){
+                	correctlyClassified++;
+                }
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		accuracy = (float) correctlyClassified/testInstances.numInstances();
+		System.out.println("The correctly classifed are "+correctlyClassified);
+		System.out.println("Accuracy is "+accuracy);
 	}
 	
 	public final void run() {
