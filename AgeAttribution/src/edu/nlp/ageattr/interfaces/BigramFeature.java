@@ -19,7 +19,7 @@ import edu.nlp.ageattr.processDataset.CreateDataset;
 
 public class BigramFeature implements SVNInterface {
 
-	public final static String input = System.getenv("NLP")+"\\top150\\bigram\\top150.txt"; 
+	public final static String input = "top150\\bigram\\top150words.txt"; 
 	private HashMap<String, String> hashmap = new HashMap<String, String>();
 	private HashMap<String, Double> wordMap = new HashMap<String, Double>();
 	private Double count=0.0;
