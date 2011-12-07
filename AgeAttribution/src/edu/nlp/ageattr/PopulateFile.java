@@ -5,7 +5,9 @@ import java.util.HashMap;
 
 public class PopulateFile {
 private HashMap<String,File> FileMap;
-public static final String RSRC_TRAIN_TXT ="C:\\Data\\AgePredictionDataset\\"+File.separator+"3000TrainTextFiles";
+public static final String RSRC_TRAIN_TXT = System.getenv("NLP")+File.separator+"1500TrainTextFiles";
+public static final String RSRC_TEST_TXT = System.getenv("NLP")+File.separator+"1500TrainTextFiles";
+
 /*public static final String RSRC_TRAIN_POSDATA ="rsrc"+File.separator+"TrainPOSDataset";
 public static final String RSRC_TRAIN_SCDATA ="rsrc"+File.separator+"TrainSCDataset";*/
 
@@ -22,9 +24,14 @@ public File getFileMap(String folderName) {
 public void setFileMap(int fileIndex) {
 	HashMap<String, File> fileMap = new HashMap<String, File>();
 
-	File TextFolder = new File(RSRC_TRAIN_TXT);
-	File[] TextFiles = TextFolder.listFiles();
-	fileMap.put("RSRC_TRAIN_TXT", TextFiles[fileIndex]);
+	File TextFolderTrain = new File(RSRC_TRAIN_TXT);
+    File[] TextFilesTrain = TextFolderTrain.listFiles();
+    fileMap.put("RSRC_TRAIN_TXT", TextFilesTrain[fileIndex]);
+
+    File TextFolderTest = new File(RSRC_TEST_TXT);
+    File[] TextFilesTest = TextFolderTest.listFiles();
+    fileMap.put("RSRC_TEST_TXT", TextFilesTest[fileIndex]);
+	
 	
 /*	File POSFolder = new File(RSRC_TRAIN_POSDATA);
 	File[] POSFiles = POSFolder.listFiles();

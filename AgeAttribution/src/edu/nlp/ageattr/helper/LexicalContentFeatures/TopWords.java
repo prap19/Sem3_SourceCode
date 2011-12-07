@@ -24,14 +24,16 @@ public class TopWords {
 	public int teenCount = 0;
 	public int twentiesCount = 0;
 	public int thirtiesCount = 0;
-	public float range = 10;
-	static final File TeensFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedTeensWordFreuency.txt");
-	static final File TwentiesFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedTwentiesWordFreuency.txt");
-	static final File ThiriesFileWordFreqNormalised = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//1000NormalisedThirteesWordFreuency.txt");
-	static final File Top150WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//top150words.txt");
-	static final File TeensFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedTeensFileTrainOut.txt");
-	static final File TwentiesFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedTwentiesFileTrainOut.txt");
-	static final File ThiriesFile50WordFreq = new File("C://Data//AgePredictionDataset//ConcatenatedFiles//50OrderedThirteesFileTrainOut.txt");
+	public float range = 1;
+	static final File TeensFileWordFreqNormalised = new File("output\\bigram\\teens.txt");
+	static final File TwentiesFileWordFreqNormalised = new File("output\\bigram\\twenties.txt");
+	static final File ThiriesFileWordFreqNormalised = new File("output\\bigram\\thirties.txt");
+	
+	static final File Top150WordFreq = new File("top150\\bigram\\top150words.txt");
+	
+	static final File TeensFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedTeensFileTrainOut.txt");
+	static final File TwentiesFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedTwentiesFileTrainOut.txt");
+	static final File ThiriesFile50WordFreq = new File(System.getenv("NLP")+"//ConcatenatedFiles//50OrderedThirteesFileTrainOut.txt");
 
 	public TopWords(){
 		stopWord = new StopWord();
@@ -40,89 +42,6 @@ public class TopWords {
 	/**
 	 * creates a map of the top 50 most frequently occuring words from each age group 
 	 */
-//	public void create(){
-//		TopWordMap = new HashMap<String, String>();
-//		createTop50FrequentUniqueWordsFile(TeensFileWordFreq, TeensFile50WordFreq,TopWordMap,TwentiesFileWordFreq,ThiriesFileWordFreq,"teens");
-//		createTop50FrequentUniqueWordsFile(TwentiesFileWordFreq, TwentiesFile50WordFreq,TopWordMap,TeensFileWordFreq,ThiriesFileWordFreq,"twenties");
-//		createTop50FrequentUniqueWordsFile(ThiriesFileWordFreq, ThiriesFile50WordFreq,TopWordMap,TwentiesFileWordFreq,TeensFileWordFreq,"thirtees");
-//	}
-//	
-//	/**
-//	 * creates a output file containing the top 50 frequently occcuring words for a input class and updates the global word map
-//	 * @param InputFile
-//	 * @param OutputFile
-//	 * @param topWordMap
-//	 * @param ClassBFile
-//	 * @param ClassCFile
-//	 * @param string 
-//	 */
-//	private void createTop50FrequentUniqueWordsFile(File InputFile, File OutputFile, HashMap<String,String> topWordMap, File ClassBFile, File ClassCFile, String classLabel ){
-//		HashSet<String> ClassB = CreateTop50WordsSet(ClassBFile);
-//		HashSet<String> ClassC = CreateTop50WordsSet(ClassCFile);
-//		BufferedReader input = null;
-//		BufferedWriter output = null;
-//		int count=0;
-//		try {
-//			input = new BufferedReader(new FileReader(InputFile));
-//			output = new BufferedWriter(new FileWriter(OutputFile));
-//			String line ="";
-//			while((line = input.readLine()) != null && count!=50){
-//				String words[] = line.split("\\s");
-//				if(!(ClassB.contains(words[0]) && ClassC.contains(words[0]))){
-//					output.write(line);
-//					output.newLine();
-//					topWordMap.put(words[0], classLabel);
-//					count++;
-//				}
-//			}
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}finally{
-//			
-//			try {
-//				input.close();
-//				output.close();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		
-//	}
-//	private HashSet<String> CreateTop50WordsSet(File InputFile) {
-//		int count =0;
-//		BufferedReader input = null;
-//		HashSet<String> WordSet = new HashSet<String>();
-//		try {
-//			input = new BufferedReader(new FileReader(InputFile));
-//			String line ="";
-//			while((line = input.readLine()) != null && count!=50){
-//				count++;
-//				String words[] = line.split("\\s");
-//				WordSet.add(words[0]);
-//				
-//			}
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally{
-//			try {
-//				input.close();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		return WordSet;
-//		
-//	}
-	
 	public void create(){
 		TopWordMap = new HashMap<String, String>();
 		

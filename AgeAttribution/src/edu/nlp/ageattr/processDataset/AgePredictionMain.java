@@ -66,7 +66,7 @@ public class AgePredictionMain {
 		final File folder = new File("rsrc/blogs/blogs");
 		final File cleanXmlFolder = new File("rsrc/CleanXMLTrain");
 		String cleanXmlFolderName = "C:\\Users\\piyush\\workspace\\AgePrediction\\rsrc\\CleanXMLTrain\\";
-		createDataset.createCleanXMLFiles(folder,cleanXmlFolderName);
+	//	createDataset.createCleanXMLFiles(folder,cleanXmlFolderName);
 		
 		/**
 		 * create Dataset of the person blogs from the clean xml files
