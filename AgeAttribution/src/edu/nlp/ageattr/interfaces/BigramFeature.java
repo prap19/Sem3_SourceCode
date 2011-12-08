@@ -28,7 +28,6 @@ public class BigramFeature implements SVNInterface {
 		// TODO Auto-generated constructor stub
 		BufferedReader br = null;
 		String line;
-		 
 		try {
 			br= new BufferedReader(new FileReader(new File(input)));
 			while((line=br.readLine())!=null) {
@@ -48,12 +47,13 @@ public class BigramFeature implements SVNInterface {
 				e.printStackTrace();
 			}
 		}
+		System.out.println(this.wordMap.size());
 	}
 	
 	@Override
 	public int getNumberOfAttributes() {
 		// TODO Auto-generated method stub
-		return this.hashmap.size();
+		return this.wordMap.size();
 	}
 
 	@Override
@@ -64,8 +64,14 @@ public class BigramFeature implements SVNInterface {
 		Iterator it = this.hashmap.entrySet().iterator();
 		while(it.hasNext()) {
 			Map.Entry<String, String> entry = (Entry<String, String>) it.next();
-			fastVector.addElement(new Attribute(entry.getKey()));
-			featureList.put(entry.getKey(), index++);
+			Attribute attribute = new Attribute(entry.getKey());
+			if(!fastVector.contains(attribute))
+			{
+				fastVector.addElement(attribute);
+				featureList.put(entry.getKey(), index++);
+			}
+			else
+				System.err.println("Found a attribute that has been already added: "+entry.getKey());
 		}
 		
 	}
@@ -140,6 +146,11 @@ public class BigramFeature implements SVNInterface {
 	public File getDataFile(String FolderName) {
 		// TODO Auto-generated method stub
 		return null;
+
+	}
+	
+	public static void main(String[] args) {
+		new BigramAnalysis();
 	}
 
 }
