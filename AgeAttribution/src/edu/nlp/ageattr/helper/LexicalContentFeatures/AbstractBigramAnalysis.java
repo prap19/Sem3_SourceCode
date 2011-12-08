@@ -50,7 +50,7 @@ public abstract class AbstractBigramAnalysis {
 		 String line="";
 		 if(dir.isDirectory()) {
 			 File[] files = dir.listFiles();
-			 for(int i=0; i<files.length; i++) {
+			 for(int i=0; i<1300; i++) {
 				 try {
 					br = new BufferedReader(new FileReader(files[i]));
 					String ageclass = BigramAnalysis.getAuthorAge(files[i].getName());
@@ -87,6 +87,8 @@ public abstract class AbstractBigramAnalysis {
 		 
 		 Iterator mitr = this.ageMap.entrySet().iterator();
 		 BufferedWriter bw = null;
+		 System.out.print("Writing words into:");
+		 System.err.println(this.output);
 		 while(mitr.hasNext()){
 			 try {
 				 Map.Entry<String, HashMap<String, Double>> entry = (Entry<String, HashMap<String,Double>>)mitr.next();
@@ -235,6 +237,8 @@ public abstract class AbstractBigramAnalysis {
 		 return res;
 		 
 	 }
+	 
+
 	 
 	 
 	 public final void run(int threshold) {

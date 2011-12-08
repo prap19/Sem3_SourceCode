@@ -42,8 +42,16 @@ public class POSUtil {
 		String[] taggedW = POSUtil.getTaggedString(str).split("\\s+");
 		StringBuilder res = new StringBuilder();
 		int i=0;
+		
 		for(String word: taggedW) {
-			res.append(word.split("/")[1]+" ");
+			try {
+				if(word.length()>1)
+					res.append(word.split("/")[1]+" ");
+			}catch(ArrayIndexOutOfBoundsException e)
+			{
+				System.err.println("Exception: "+word+" len:"+word.length());
+				e.printStackTrace();
+			}
 		}
 		
 		return res.toString().trim();
